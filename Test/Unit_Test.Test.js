@@ -1,16 +1,68 @@
 var axios = require("axios");
 const expect = require("chai").expect
 let chaiHttp = require('chai-http');
+const chaiAsPromised = require("chai-as-promised");
+
 let chai = require('chai');
 let should = chai.should();
 chai.use(chaiHttp);
+chai.use(chaiAsPromised);
+
 const api_domain = "http://localhost:3000";
 
 
 
-// /*
-// Test login procedure with positive (OK) test and negative (Fail) tests
-// */
+/*
+Test login procedure with positive (OK) test and negative (Fail) tests
+*/
+describe('/POST login', () => {
+  it('OK,  Correct username and password', async () => {
+    chai.request(`${api_domain}`)
+        .post('/login')
+        .send({username: "Johnc", password: "1234John"})
+        .end((err, res) => {
+              res.should.have.status(200);
+              res.should.have.property('text').eql('Login succeeded')
+      });
+    });
+
+  it('Fail, incorrect login should return status code 401', async () => {
+    chai.request(`${api_domain}`)
+    .post('/login')
+    .send({username: "JohnC", password: "1234John"})
+    .end((err, res) => {
+          res.should.have.status(401);
+          res.should.have.property('text').eql('Username or Password incorrect');
+         console.log(res.status)
+
+   })
+   .abort(err => done(err));
+  });
+
+  it('Fail, incorrect login should return status code 401', async () => {
+        chai.request(`${api_domain}`)
+        .post('/login')
+        .send({username: "Johnc", password: "124John"})
+        .end((err, res) => {
+              res.should.have.status(401);
+              res.should.have.property('text').eql('Username or Password incorrect')
+  })
+});
+
+  it('Fail, incorrect login should return status code 401', async () => {
+        chai.request(`${api_domain}`)
+        .post('/login')
+        .send({username: "", password: ""})
+        .end((err, res) => {
+              res.should.have.status(401);
+              res.should.have.property('text').eql('Username or Password incorrect')
+  });
+});
+
+});
+
+
+
 // describe('/POST login', () => {
 //   it('Fail, Login need to fail with bad username or password', (done) => {
 //     chai.request(`${api_domain}`)
@@ -168,4 +220,3 @@ describe('/POST addGame', () => {
 //       done()})
 //   })
 // })
-
