@@ -1,4 +1,7 @@
-const common = require("./common.js");
+/*
+name - the name of the test that will be shown in the screen.
+path - the path to the test file
+*/
 function importTest(name, path) {
   describe(name, function () {
       require(path);
@@ -6,7 +9,9 @@ function importTest(name, path) {
 }
 
 
-
+/*
+The main file that will run each test.
+*/
 describe("top", function () {
 
   const common = require("./common.js");
