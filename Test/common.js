@@ -21,6 +21,7 @@ exports.DButils = DButils
 
 exports.createFakeUser = async () =>
 {
+    
     await axios.post(
         `${api_domain}/register`,
         { username: "fakeuser",
@@ -31,10 +32,17 @@ exports.createFakeUser = async () =>
         email: "fake@example.com",
         imageurl: "https:\\fake-profile.com"}
     )
+
+    let userid = await DButils.execQuery(`SELECT userid FROM Users WHERE username = 'fakeuser'`)
+    userid = userid[0].userid;
+
+    await DButils.execQuery(`INSERT INTO LeagueRepsUsers VALUES (${userid})`)
 }
 
 exports.deleteFakeUser = async () =>
 {
-    await DButils.execQuery(`DELETE FROM Users WHERE username = 'fakeuser'`)
-    
+    let userid = await DButils.execQuery(`SELECT userid FROM Users WHERE username = 'fakeuser'`)
+    userid = userid[0].userid;
+    await DButils.execQuery(`DELETE FROM Users WHERE userid = ${userid}`)
+    await DButils.execQuery(`DELETE FROM LeagueRepsUsers WHERE userid = ${userid}`)
 }

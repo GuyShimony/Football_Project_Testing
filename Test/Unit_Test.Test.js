@@ -21,7 +21,8 @@ describe("top", function () {
     await common.createFakeUser();
   });
   // importTest("Game scheduling", "./Game_Schedule/Games_Sched_Unit_Testing.js");
-  importTest("Login", "./API/LoginAPI_Unit_Testing.js");
+  //importTest("Login", "./API/LoginAPI_Unit_Testing.js");
+  importTest("addGame", "./API/GameAPI_Unit_Testing.js");
 
   after(async function () {
       console.log("Clear the fake username from the DB");
