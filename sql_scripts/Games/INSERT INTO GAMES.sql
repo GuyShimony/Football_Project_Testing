@@ -1,4 +1,4 @@
-use [Users];
+
 
 INSERT INTO Games
    ([GameDateTime],[HomeTeam],[HomeTeamID],[AwayTeam],

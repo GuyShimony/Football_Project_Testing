@@ -1,4 +1,3 @@
-use [Users];
 
 INSERT INTO Referees
    ([Name])
