@@ -6,7 +6,7 @@ const axios = require("axios")
 chai.use(chaiHttp);
 chai.use(chaiAsPromised);
 const path = require("path")
-const DButils = require(path.join(__dirname, '../',"Domain","routes","utils","DButils.js"));
+const DButils = require(path.join(__dirname, '../',"Domain","DButils.js"));
 
 
 exports.api_domain = api_domain = "http://localhost:3000";
