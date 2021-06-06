@@ -4,5 +4,7 @@ DROP TABLE dbo.Referees
 CREATE TABLE dbo.Referees
 (
     Name [NVARCHAR](50) NOT NULL PRIMARY KEY,
+    RefereeType [NVARCHAR](50) NOT NULL,
+
 );
 
