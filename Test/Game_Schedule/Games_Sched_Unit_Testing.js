@@ -1,7 +1,7 @@
 let common = require("../common.js");
 
 
-let game_utils = require(common.path.join(__dirname, '../../',"Domain","games_utils.js"));
+let games_utils = require(common.path.join(__dirname, '../../',"Domain","games_utils.js"));
 let teams_utils = require(common.path.join(__dirname, '../../',"Domain","teams_utils.js"));
 let season_utils = require(common.path.join(__dirname, '../../',"Domain","season_utils.js"));
 
@@ -67,7 +67,7 @@ describe('#checkTeamLeagueByTeamId()', function() {
       common.expect(result).to.equal(true)
     })
   })
-  context('with team that does not belong to super liga', function() {
+  context('with team that does not belong to Superliga', function() {
     it('should return false', async  function() {
       const result = await teams_utils.checkTeamLeagueByTeamId(930)
       common.expect(result).to.equal(false)
@@ -77,15 +77,15 @@ describe('#checkTeamLeagueByTeamId()', function() {
 
 describe('#checkIfMathcExists()', function() {
 
-  context('with valid match', function() {
+  context('with valid datetime that belongs to a real match', function() {
     it('should return true', async  function() {
-      const result = await games_utils.checkIfMathcExists(86)
+      const result = await games_utils.checkIfMathcExists("2021-01-03 19:00:00")
       common.expect(result).to.equal(true)
     })
   })
-  context('with team that does not belong to super liga', function() {
+  context('with invalid datetime that does not belong to a real match', function() {
     it('should return false', async  function() {
-      const result = await teams_utils.checkTeamLeagueByTeamId(930)
+      const result = await games_utils.checkIfMathcExists("2021-01-03 19:00:00")
       common.expect(result).to.equal(false)
     })
   })

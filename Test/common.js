@@ -21,7 +21,10 @@ exports.DButils = DButils
 
 exports.createFakeUser = async () =>
 {
-    
+    let user = await DButils.execQuery(`SELECT userid FROM Users WHERE username = 'fakeuser'`)
+    if (user.length > 0)
+        return user
+
     await axios.post(
         `${api_domain}/register`,
         { username: "fakeuser",
