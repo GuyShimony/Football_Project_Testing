@@ -1,10 +1,10 @@
 var express = require("express");
 var router = express.Router();
-const DButils = require("./utils/DButils");
-const users_utils = require("./utils/users_utils");
-const players_utils = require("./utils/players_utils");
-const teams_utils = require("./utils/teams_utils.js");
-const games_utils = require("./utils/games_utils.js");
+const DButils = require("../Domain/DButils");
+const users_utils = require("../Domain/users_utils");
+const players_utils = require("../Domain/players_utils");
+const teams_utils = require("../Domain/teams_utils.js");
+const games_utils = require("../Domain/games_utils.js");
 
 
 /**

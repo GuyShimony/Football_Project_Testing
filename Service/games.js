@@ -1,9 +1,9 @@
 var express = require("express");
 var router = express.Router();
-const games_utils = require("./utils/games_utils");
-const season_utils = require("./utils/season_utils");
-const teams_utils = require("./utils/teams_utils");
-const DButils = require("./utils/DButils");
+const games_utils = require("../Domain/games_utils");
+const season_utils = require("../Domain/season_utils");
+const teams_utils = require("../Domain/teams_utils");
+const DButils = require("../Domain/DButils");
 
 
 

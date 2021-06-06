@@ -20,7 +20,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "mocha --timeout 10000",
-    "start": "nodemon ./Domain/main.js"
+    "start": "nodemon ./main.js"
   },
   "repository": {
     "type": "git",

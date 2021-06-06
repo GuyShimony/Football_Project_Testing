@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-const DButils = require("../routes/utils/DButils");
+const DButils = require("../Domain/DButils");
 const bcrypt = require("bcryptjs");
 
 router.post("/register", async (req, res, next) => {

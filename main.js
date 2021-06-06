@@ -1,5 +1,5 @@
 //#region global imports
-const DButils = require("./routes/utils/DButils");
+const DButils = require("./Domain/DButils");
 require("dotenv").config();
 //#endregion
 //#region express configures
@@ -33,7 +33,7 @@ app.use(express.static("dist"));
 
 app.get("/api", (req, res) => {
   console.log(__dirname)
-  res.sendFile(__dirname + "/index.html");
+  res.sendFile(__dirname + "/Domain/index.html");
 });
 
 const corsConfig = {
@@ -46,12 +46,12 @@ app.options("*", cors(corsConfig));
 
 const port = process.env.PORT || "3000";
 
-const auth = require("./routes/auth");
-const users = require("./routes/users");
-const league = require("./routes/league");
-const teams = require("./routes/teams");
-const games = require("./routes/games");
-const players = require("./routes/players");
+const auth = require("./Service/auth");
+const users = require("./Service/users");
+const league = require("./Service/league");
+const teams = require("./Service/teams");
+const games = require("./Service/games");
+const players = require("./Service/players");
 //#endregion
 
 //#region cookie middleware

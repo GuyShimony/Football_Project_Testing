@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
-const players_utils = require("./utils/players_utils");
-const teams_utils = require("./utils/teams_utils");
+const players_utils = require("../Domain/players_utils");
+const teams_utils = require("../Domain/teams_utils");
 
 
 async function getTeamData(team_id){
