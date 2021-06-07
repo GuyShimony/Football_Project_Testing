@@ -245,8 +245,5 @@ exports.addFutureGame = addFutureGame;
 exports.addScoreToGame = addScoreToGame
 exports.addEventToGame = addEventToGame
 exports.checkIfMathcExists = checkIfMathcExists
-<<<<<<< HEAD
 exports.checkIfTeamHaveGame = checkIfTeamHaveGame;
-=======
 exports.deleteGame = deleteGame
->>>>>>> c3f53291136975fefac6cc4547ffba6433799dc4
