@@ -79,14 +79,25 @@ describe('#checkIfMathcExists()', function() {
 
   context('with valid datetime that belongs to a real match', function() {
     it('should return true', async  function() {
-      const result = await games_utils.checkIfMathcExists("2021-01-03 19:00:00")
+      const result = await games_utils.checkIfMathcExists("2021-01-03 19:00:00", 939, 390 )
       common.expect(result).to.equal(true)
     })
   })
   context('with invalid datetime that does not belong to a real match', function() {
     it('should return false', async  function() {
-      const result = await games_utils.checkIfMathcExists("2021-01-03 19:00:00")
+      const result = await games_utils.checkIfMathcExists("2019-01-03 19:00:00", 939, 390)
       common.expect(result).to.equal(false)
+    })
+  })
+
+  context('with no home team and away team', function() {
+    it('should throw error', async  function() {
+      await games_utils.checkIfMathcExists("2021-01-03 19:00:00")
+      .catch( function(error){
+              // add an assertion to check the error
+          common.expect(function() { throw error })
+          .to.throw(Error);
+      })
     })
   })
     
