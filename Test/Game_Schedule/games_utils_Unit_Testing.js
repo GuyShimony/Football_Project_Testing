@@ -273,30 +273,59 @@ All the functions in the auth module related to the game adding Use Case will be
 
 //   })
 
-  describe('#getGamesInfo()', function() {
-    context('valid games ids', function() {
-      it('should be array of size 1 with GameDatime of 2021-01-03 21:00:00', async  function() {
-        const result = await games_utils.getGamesInfo([1])
-        common.expect(result.length).to.equal(1)
-        const returned_gametime = new Date(result[0].GameDateTime)
-        const expected_gametime = new Date("2021-01-03 21:00:00")
-        common.expect(returned_gametime.toString()).to.equal(expected_gametime.toString())
-      })
+//   describe('#getGamesInfo()', function() {
+//     context('valid games ids', function() {
+//       it('should be array of size 1 with GameDatime of 2021-01-03 21:00:00', async  function() {
+//         const result = await games_utils.getGamesInfo([1])
+//         common.expect(result.length).to.equal(1)
+//         const returned_gametime = new Date(result[0].GameDateTime)
+//         const expected_gametime = new Date("2021-01-03 21:00:00")
+//         common.expect(returned_gametime.toString()).to.equal(expected_gametime.toString())
+//       })
 
-    })
+//     })
 
-    context('valid games ids', function() {
-      it('should be array of size 2 with GameDatime of 2021-01-10 21:00:00, 2021-01-13 21:00:00', async  function() {
-        const result = await games_utils.getGamesInfo([2,3])
-        common.expect(result.length).to.equal(2)
-        let returned_gametime = new Date(result[0].GameDateTime)
-        let expected_gametime = new Date("2021-01-10 21:00:00")
-        common.expect(returned_gametime.toString()).to.equal(expected_gametime.toString())
-        let returned_gametime = new Date(result[1].GameDateTime)
-        let expected_gametime = new Date("2021-01-13 21:00:00")
-        common.expect(returned_gametime.toString()).to.equal(expected_gametime.toString())
-      })
+//     context('valid games ids', function() {
+//       it('should be array of size 2 with GameDatime of 2021-01-10 21:00:00, 2021-01-13 21:00:00', async  function() {
+//         const result = await games_utils.getGamesInfo([2,3])
+//         common.expect(result.length).to.equal(2)
+//         let returned_gametime = new Date(result[0].GameDateTime)
+//         let expected_gametime = new Date("2021-01-10 21:00:00")
+//         common.expect(returned_gametime.toString()).to.equal(expected_gametime.toString())
+//         returned_gametime = new Date(result[1].GameDateTime)
+//         expected_gametime = new Date("2021-01-13 21:00:00")
+//         common.expect(returned_gametime.toString()).to.equal(expected_gametime.toString())
+//       })
+//     })
+//     context('invalid games ids', function() {
+//         it('should throw error', async  function() {
+//           await games_utils.getGamesInfo([0,13])
+//           .catch( function(error){
+//             common.expect(function() { throw error })
+//             .to.throw(Error)
+//           })
+//         })
+//     })
+//       context('with nulls', function() {
+//           it('should throw error', async  function() {
+//             await games_utils.getGamesInfo([null])
+//             .catch( function(error){
+//             common.expect(function() { throw error })
+//             .to.throw(Error)
+//           })
+//       })
+//     })
+// })
 
+describe('#addScoreToGame()', function() {
+  context('valid games and score', function() {
+    it('should ', async  function() {
+      const result = await games_utils.getGamesInfo([1])
+      common.expect(result.length).to.equal(1)
+      const returned_gametime = new Date(result[0].GameDateTime)
+      const expected_gametime = new Date("2021-01-03 21:00:00")
+      common.expect(returned_gametime.toString()).to.equal(expected_gametime.toString())
     })
 
   })
+})
