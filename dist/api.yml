@@ -71,6 +71,32 @@ paths:
         "200":
            description: "Logout Successfull"
 
+  /users/registerAsReferee:
+    post:
+        tags:
+        - "User"
+        summary: "Add a user as referee"
+        description: "The referee is saved in the system as referee."
+        operationId: "RefereeRegister" 
+        requestBody:
+          content:
+            application/json:  
+              schema:
+                type: object
+                $ref: "#/components/schemas/Referee"
+        responses:
+          "406":
+            description: "Bad input. Please check the name or the role"
+          "405":
+            description: "Referee already exists" 
+          "404":
+            description: "URL not found"
+          "401":
+            description: "Unauthorized, please login first"
+          "500":
+            description: "Internal Server error"
+          "200":
+            description: "Registration was sucessfull"
             
   /users/favoriteGames:
      get:
@@ -811,6 +837,9 @@ components:
         name:
           type: "String"
           example: "Denis Shalayev"
+        role:
+          type: "String"
+          example: "Box"
 
     GameEvent:
       description: "An Event in a game. Options are: Red Card, Yellow Card, Foul, Offside, Goal, Injury, Subsitution"

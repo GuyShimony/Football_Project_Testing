@@ -3,7 +3,8 @@ DROP TABLE dbo.Referees
 
 CREATE TABLE dbo.Referees
 (
-    Name [NVARCHAR](50) NOT NULL PRIMARY KEY,
+    userid INT NOT NULL PRIMARY KEY,
+    Name [NVARCHAR](50) NOT NULL,
     RefereeType [NVARCHAR](50) NOT NULL,
 
 );
