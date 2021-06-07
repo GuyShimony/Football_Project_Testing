@@ -21,7 +21,7 @@ async function getTeamIdByName(team_name){
 The method query the SportMonk API for part of the team's information.
 Will return {team_name, logo_path}
 */
-async function getPreviwTeamData(team_id) {
+async function getPreviewTeamData(team_id) {
   const team_data = await axios.get(`${api_domain}/teams/${team_id}`, {
     params: {
       api_token: process.env.api_token,
@@ -89,5 +89,5 @@ async function checkTeamLeagueByTeamId(team_id){
 
 exports.getTeamsInfo = getTeamsInfo;
 exports.getTeamIdByName = getTeamIdByName;
-exports.getPreviwTeamData = getPreviwTeamData
+exports.getPreviewTeamData = getPreviewTeamData
 exports.checkTeamLeagueByTeamId = checkTeamLeagueByTeamId
