@@ -194,6 +194,30 @@ async function getAllGames(){
   return await DButils.execQuery("SELECT * FROM Games");
 }
 
+
+/* !!!!!!!!!!!!!!
+ADDDED METHOD FOR REGRESSION TEST FOR USE CASE -> 
+This method will not be fully implemented in order to check that the system does not crash
+*/ 
+async function deleteGame(game_time){
+  try{
+    let gameid_to_delete = await DButils.execQuery(`SELECT gameid FROM Games Where GameDateTime = '${game_time}'`)
+    await DButils.execQuery(`DELETE FROM Games Where gameid = '${gameid_to_delete[0]["gameid"]}'`)
+    let eventids_to_delete = await DButils.execQuery(`SELECT eventid FROM GamesEvents Where gameid = '${gameid_to_delete[0]["gameid"]}'`)
+    await DButils.execQuery(`DELETE FROM GamesEvents Where gameid = '${gameid_to_delete[0]["gameid"]}'`)
+    //MISSING CORRESPONDING EVENTS DELETION
+    // eventids_to_delete.map(async (eventid) =>{
+    //   await DButils.execQuery(`DELETE From Events WHERE 
+    //   eventid = '${eventid}'`);
+    // });
+    return true
+  }
+  catch(error){
+    return false
+  }
+}
+
+
 exports.getAllGames = getAllGames;
 exports.getTeamLatestGames = getTeamLatestGames;
 exports.getTeamUpcomingGames = getTeamUpcomingGames;
@@ -206,3 +230,4 @@ exports.addFutureGame = addFutureGame;
 exports.addScoreToGame = addScoreToGame
 exports.addEventToGame = addEventToGame
 exports.checkIfMathcExists = checkIfMathcExists
+exports.deleteGame = deleteGame
