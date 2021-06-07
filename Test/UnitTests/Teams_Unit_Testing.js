@@ -31,7 +31,7 @@ describe('#getTeamIdByName()', function() {
         })
       })
     })
-
+})
 
 describe('#getPreviewTeamData()', function() {
 
@@ -59,7 +59,7 @@ describe('#getPreviewTeamData()', function() {
             })
           })
         })
-
+    })
 
 
 describe('#getTeamsInfo()', function() {
