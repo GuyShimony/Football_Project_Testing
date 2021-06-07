@@ -110,11 +110,6 @@ async function gatAllTeams(game_date, game_time,team_name=null){
 
 exports.getTeamsInfo = getTeamsInfo;
 exports.getTeamIdByName = getTeamIdByName;
-<<<<<<< HEAD
-exports.getPreviwTeamData = getPreviwTeamData;
-exports.checkTeamLeagueByTeamId = checkTeamLeagueByTeamId;
 exports.gatAllTeams = gatAllTeams;
-=======
 exports.getPreviewTeamData = getPreviewTeamData
 exports.checkTeamLeagueByTeamId = checkTeamLeagueByTeamId
->>>>>>> c3f53291136975fefac6cc4547ffba6433799dc4
