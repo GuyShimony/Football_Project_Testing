@@ -25,26 +25,26 @@ router.get("/currentStageGames", async (req, res, next) => {
   /**
  * Check if the user is a league representive by middleware
  */
-router.use(async function (req, res, next) {
-  if (req.session && req.session.userid) {
-    console.log("Checking if the user is a league representive")
+// router.use(async function (req, res, next) {
+//   if (req.session && req.session.userid) {
+//     console.log("Checking if the user is a league representive")
 
-    try{
-      const users = await DButils.execQuery("SELECT userid FROM LeagueRepsUsers")
-      if (users.find((x) => x.userid === req.session.userid)) {
-        console.log("The user is a leagure representive")
-        next();
-      }
-      else 
-        res.status(401).send("Privilege Error: The following action is only permitted to league representives");
+//     try{
+//       const users = await DButils.execQuery("SELECT userid FROM LeagueRepsUsers")
+//       if (users.find((x) => x.userid === req.session.userid)) {
+//         console.log("The user is a leagure representive")
+//         next();
+//       }
+//       else 
+//         res.status(401).send("Privilege Error: The following action is only permitted to league representives");
 
 
-  } catch (error) {
-      next(error);}
-    }
-  else
-    res.status(401).send("Privilege Error: The following action is only permitted to league representives Or you have not Logged in first")
-});
+//   } catch (error) {
+//       next(error);}
+//     }
+//   else
+//     res.status(401).send("Privilege Error: The following action is only permitted to league representives Or you have not Logged in first")
+// });
 
 router.get("/all", async (req, res, next) => {
   try {
@@ -119,5 +119,23 @@ router.post("/addGame", async (req, res, next) => {
       next(error);
     }
   });
+
+  router.get("/showTeams/:game_date/time/:game_time", async (req, res, next) => {
+  try {
+    const teams_ava = await teams_utils.gatAllTeams(req.params.game_date,req.params.game_time);
+    res.send(teams_ava);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get("/showTeams/:game_date/time/:game_time/awayteam/:team_name", async (req, res, next) => {
+  try {
+    const teams_ava = await teams_utils.gatAllTeams(req.params.game_date,req.params.game_time,req.params.team_name);
+    res.send(teams_ava);
+  } catch (error) {
+    next(error);
+  }
+});
 
   module.exports = router;

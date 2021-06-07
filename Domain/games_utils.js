@@ -49,6 +49,21 @@ async function getTeamUpcomingGames(team_id){
 }
 
 /*
+The method will return all teams that dont playes in this date and time.
+*/
+async function checkIfTeamHaveGame(teams,game_date,game_time,team_name=null){
+  const upcoming_teams = await DButils.execQuery(`SELECT AwayTeamID,HomeTeamID From Games WHERE GameDateTime >= DATEADD(HOUR,-2,'${game_date} ${game_time}') AND GameDateTime<=DATEADD(HOUR,2,'${game_date} ${game_time}')`);
+  let teams_after_filter=[];
+  if (teams!=null) (
+    teams.map((team) =>{
+      if(team.name!=team_name && (upcoming_teams==null || !(upcoming_teams.find((x) => x.AwayTeamID === team.id || x.HomeTeamID === team.id)))){
+        teams_after_filter.push(team);
+      }
+    })
+  )
+  return teams_after_filter;
+}
+/*
   The method will query the games DB all the games that were already played with regard to now
 */
 async function getAllPastGames(){
@@ -230,4 +245,8 @@ exports.addFutureGame = addFutureGame;
 exports.addScoreToGame = addScoreToGame
 exports.addEventToGame = addEventToGame
 exports.checkIfMathcExists = checkIfMathcExists
+<<<<<<< HEAD
+exports.checkIfTeamHaveGame = checkIfTeamHaveGame;
+=======
 exports.deleteGame = deleteGame
+>>>>>>> c3f53291136975fefac6cc4547ffba6433799dc4

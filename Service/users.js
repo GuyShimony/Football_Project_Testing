@@ -49,7 +49,7 @@ router.post("/registerAsReferee", async (req, res, next) => {
       
     // add the new referee
     await DButils.execQuery(
-      `INSERT INTO dbo.Referees (Name, RefereeType) VALUES ('${name}', '${role}')`
+      `INSERT INTO dbo.Referees (userid, Name, RefereeType) VALUES ('${user_id}','${name}', '${role}')`
     );
     res.status(201).send("Referee added");
   } catch (error) {
