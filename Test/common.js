@@ -49,3 +49,4 @@ exports.deleteFakeUser = async () =>
     await DButils.execQuery(`DELETE FROM Users WHERE userid = ${userid}`)
     await DButils.execQuery(`DELETE FROM LeagueRepsUsers WHERE userid = ${userid}`)
 }
+
