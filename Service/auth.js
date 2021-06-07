@@ -63,4 +63,34 @@ router.post("/logout", function (req, res) {
   res.send({ success: true, message: "logout succeeded" });
 });
 
+
+/* !!!!!!!!!!!!!!
+ADDDED METHOD FOR REGRESSION TEST FOR USE CASE -> 
+This method will not be fully implemented in order to check that the system does not crash
+*/ 
+async function incorrectLogin(game_time){
+  try {
+    const user = (
+      await DButils.execQuery(
+        `SELECT * FROM Users WHERE username = '${req.body.username}'`
+      )
+    )[0];
+    // user = user[0];
+    console.log(user);
+
+    // check that username exists & the password is correct
+    if (!user ){//|| !bcrypt.compareSync(req.body.password, user.password)) {
+      throw { status: 401, message: "Username or Password incorrect" };
+    }
+
+    // Set cookie
+    req.session.userid = user.userid;
+
+    // return cookie
+    res.status(200).send("Login succeeded");
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = router;

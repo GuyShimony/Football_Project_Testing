@@ -4,3 +4,5 @@ INSERT INTO Users
    
 VALUES
    ('aliceLoveBob', 'alice', 'wonder','spain','1234alice','alice@example.com','www.someurl.com')
+
+
