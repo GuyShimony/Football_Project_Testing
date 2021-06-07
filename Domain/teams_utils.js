@@ -3,6 +3,8 @@ const api_domain = "https://soccer.sportmonks.com/api/v2.0";
 const coach_utils = require("./coach_utils");
 const game_utils = require("./games_utils");
 const league_utils = require("./league_utils");
+const DButils = require("./DButils");
+const SEASONID = 18334;
 
 /*
 The method will query the sports api for the team's name and return the id
@@ -85,9 +87,29 @@ async function checkTeamLeagueByTeamId(team_id){
   return  league_utils.checkIfLeagueIsSuperLiga(team_info.data.data.league.data.id)
 }
 
+/*
+The method will return all teams in leauge.
+*/
+async function gatAllTeams(game_date, game_time,team_name=null){
+  const teams = await axios.get(`${api_domain}/teams/season/${SEASONID}`, {
+    params: {
+      api_token: process.env.api_token,
+      include: "league"
+    },
+  })
+  let teams_info = teams.data.data.map( team => {
+    return {
+      id: team.id,
+      name: team.name,
+  }})
+  let teams_after_filter= await game_utils.checkIfTeamHaveGame(teams_info, game_date, game_time,team_name);
+  return teams_after_filter;
+}
+
 
 
 exports.getTeamsInfo = getTeamsInfo;
 exports.getTeamIdByName = getTeamIdByName;
-exports.getPreviwTeamData = getPreviwTeamData
-exports.checkTeamLeagueByTeamId = checkTeamLeagueByTeamId
+exports.getPreviwTeamData = getPreviwTeamData;
+exports.checkTeamLeagueByTeamId = checkTeamLeagueByTeamId;
+exports.gatAllTeams = gatAllTeams;

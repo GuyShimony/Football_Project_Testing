@@ -300,6 +300,120 @@ paths:
           description: ""Privilege Error: The following action is only permitted to league representives"
         "200":
           description: "The game was updated"
+
+  /games/showTeams/{game_date}/time/{game_time}:
+    get:
+      tags:
+        - "Games"
+      summary: "Get all available teams"
+      description: "Return all teams available"
+      parameters:
+      - name: "game_date"
+        in: "path"
+        description: "Game date"
+        required: true
+        schema:
+          type: "string"
+          example: "2021-01-13"
+      - name: "game_time"
+        in: "path"
+        description: "Game time"
+        required: true
+        schema:
+          type: "string"
+          example: "19:00:00"
+
+      responses:
+        "500":
+          description: "Internal Server error"
+        "404":
+          description: "URL not found"
+        "401":
+          description: ""Privilege Error: The following action is only permitted to league representives"
+        "200":
+          description: "successful operation"
+          content:  
+            application/json:    
+              schema:            
+                $ref: "#/components/schemas/TeamName"
+
+  /games/showTeams/{game_date}/time/{game_time}/awayteam/{team_name}:
+    get:
+      tags:
+        - "Games"
+      summary: "Get all available teams except away team"
+      description: "Return all teams available except away team"
+      parameters:
+      - name: "game_date"
+        in: "path"
+        description: "Game date"
+        required: true
+        schema:
+          type: "string"
+          example: "2021-01-13"
+      - name: "game_time"
+        in: "path"
+        description: "Game time"
+        required: true
+        schema:
+          type: "string"
+          example: "19:00:00"
+      - name: "team_name"
+        in: "path"
+        description: "away team name"
+        required: true
+        schema:
+          type: "string"
+          example: "Horsens"
+
+      responses:
+        "500":
+          description: "Internal Server error"
+        "404":
+          description: "URL not found"
+        "401":
+          description: ""Privilege Error: The following action is only permitted to league representives"
+        "200":
+          description: "successful operation"
+          content:  
+            application/json:    
+              schema:            
+                $ref: "#/components/schemas/TeamName"
+  /games/showHeadReferees/{game_date}/time/{game_time}:
+    get:
+      tags:
+        - "Games"
+      summary: "Get all available head referee"
+      description: "Return all head referees available"
+      parameters:
+      - name: "game_date"
+        in: "path"
+        description: "Game date"
+        required: true
+        schema:
+          type: "string"
+          example: "2021-01-13"
+      - name: "game_time"
+        in: "path"
+        description: "Game time"
+        required: true
+        schema:
+          type: "string"
+          example: "19:00:00"
+
+      responses:
+        "500":
+          description: "Internal Server error"
+        "404":
+          description: "URL not found"
+        "401":
+          description: ""Privilege Error: The following action is only permitted to league representives"
+        "200":
+          description: "successful operation"
+          content:  
+            application/json:    
+              schema:            
+                $ref: "#/components/schemas/TeamName"
         
   /games/addEvent:
     post:
@@ -1028,3 +1142,14 @@ components:
         type: object
         allOf:
           - $ref: "#/components/schemas/Game"
+    
+    TeamName:
+      type: object
+      properties:
+        id:
+            type: "integer"
+            format: "int64"
+            example: 211
+        name:
+            type: "string"
+            example: "Horsens"
