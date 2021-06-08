@@ -306,6 +306,7 @@ All the functions in the auth module related to the game adding Use Case will be
 //           })
 //         })
 //     })
+
 //       context('with nulls', function() {
 //           it('should throw error', async  function() {
 //             await games_utils.getGamesInfo([null])
@@ -317,15 +318,83 @@ All the functions in the auth module related to the game adding Use Case will be
 //     })
 // })
 
-describe('#addScoreToGame()', function() {
-  context('valid games and score', function() {
-    it('should ', async  function() {
-      const result = await games_utils.getGamesInfo([1])
-      common.expect(result.length).to.equal(1)
-      const returned_gametime = new Date(result[0].GameDateTime)
-      const expected_gametime = new Date("2021-01-03 21:00:00")
-      common.expect(returned_gametime.toString()).to.equal(expected_gametime.toString())
-    })
+// describe('#addScoreToGame()', function() {
+//   context('valid games and score', function() {
+//     it('should add score to game', async  function() {
+//       const test_data = {
+//         gameid: 1,
+//         score: "100-1"
+//       }
+//       await games_utils.addScoreToGame(test_data.gameid, test_data.score)
+//       const result = await common.DButils.execQuery(`SELECT Result From Games WHERE gameid = ${test_data.gameid}`)
+//       common.expect(result[0].Result).to.equal(test_data.score)
+//     })
+//   })
 
+//   context('invalid score', function() {
+//     it('should throw error', async  function() {
+//       const test_data = {
+//         gameid: 1,
+//         score: "-1 - 10"
+//       }
+//       await games_utils.addScoreToGame(test_data.gameid, test_data.score)
+//       .then(() => {throw {message: "should had throw an error and not succeed"}})
+//       .catch( function(error){
+//       common.expect(error.message).to.not.equal("should had throw an error and not succeed")
+//       })
+//     })
+//   })
+
+//     context('invalid score', function() {
+//       it('should throw error', async  function() {
+//         const test_data = {
+//           gameid: null,
+//           score: "-1 - 10"
+//         }
+//         await games_utils.addScoreToGame(test_data.gameid, test_data.score)
+//         .then(() => {throw {message: "should had throw an error and not succeed"}})
+//         .catch( function(error){
+//         common.expect(error.message).to.not.equal("should had throw an error and not succeed")
+//         })
+//       })
+//     })
+
+//   context('game that does not exists in the DB', function() {
+//     it('should throw error', async  function() {
+//       const test_data = {
+//         gameid: 0,
+//         score: "10-2"
+//       }
+//       await games_utils.addScoreToGame(test_data.gameid, test_data.score)
+//       .then(() => {throw {message: "should had throw an error and not succeed"}})
+//       .catch( function(error){
+//         common.expect(error.message).to.not.equal("should had throw an error and not succeed")
+//       })
+//     })
+//   })
+// })
+
+
+describe('#addEventToGame()', function() {
+  context('valid games and events', function() {
+    it('should add score to game', async  function() {
+      const test_data = {
+        gameid: 1,
+        event: {
+          event_date:"2021-01-03",
+          event_time: "19:00:00",
+          event_game_time: 65,
+          event: "Red card for messi"
+      }
+      }
+      await games_utils.addEventToGame(test_data.gameid, test_data.event)
+      const result = await common.DButils.execQuery(`SELECT Event From Events WHERE 
+      EventDate = '${test_data.event.event_date}' AND 
+      EventTime = '${test_data.event.event_time}' AND 
+      EventGameTime = ${test_data.event.event_game_time}`)
+      common.expect(result[0].Event).to.equal(test_data.event.event)
+    })
+    // TOOD: Negative test and removeAllPastGames
   })
+
 })

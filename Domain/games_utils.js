@@ -139,7 +139,7 @@ async function getGamesInfo(game_ids){
 
 /*
 The method will get all the data of a game and will add it to the games DB
-The Game should be a past game
+The Game should be a future game
 */
 async function addFutureGame(game_date,game_time, HomeTeam, HomeTeamID,AwayTeam,
   AwayTeamID,stadium, headreferee, linereferee1, linereferee2,boxreferee1, boxreferee2){
@@ -248,4 +248,8 @@ exports.addScoreToGame = addScoreToGame
 exports.addEventToGame = addEventToGame
 exports.checkIfMathcExists = checkIfMathcExists
 exports.checkIfTeamHaveGame = checkIfTeamHaveGame;
+<<<<<<< HEAD
 exports.deleteGame = deleteGame
+=======
+exports.deleteGame = deleteGame
+>>>>>>> 0f57033ae7d6ea8839d61a5136340bef2e23dc97
