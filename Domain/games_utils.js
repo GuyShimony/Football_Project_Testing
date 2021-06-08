@@ -50,7 +50,7 @@ async function getTeamUpcomingGames(team_id){
 The method will return the teams that aren't playing in the date and time 
 given in the input.
 team_name -> will be filtered from the teams list
-teams -> list of teams 
+teams -> list of teams - team:{id, name}
 return -> list of teams that are free to play in the game's datetime
 */
 async function checkIfTeamHaveGame(teams,game_date,game_time,team_name=null){
