@@ -98,7 +98,7 @@ router.post("/addGame", async (req, res, next) => {
 
       await games_utils.addFutureGame(game_date,game_time,home_team,home_team_id,away_team,
         away_team_id,stadium,headreferee, linereferee1, linereferee2,boxreferee1, boxreferee2)
-
+      console.log('the game is added')
       res.status(201).send("The game was successfully added");
       } catch (error) {
       next(error);
