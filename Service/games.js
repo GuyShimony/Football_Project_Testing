@@ -79,9 +79,9 @@ router.post("/addGame", async (req, res, next) => {
         home_team_id = ids[0]
         away_team_id = ids[1]
       }
-
+      
       //check if referee have been chosen twice
-      if (linereferee1.id==linereferee2.id || boxreferee1.id==boxreferee1.id)
+      if (linereferee1.user_id==linereferee2.user_id ||boxreferee1.user_id==boxreferee2.user_id)
         throw { status: 406, message: "Bad game input. Please check the date or teams or referees" };
 
       // Check if the game's date match the current season. If not send an error to the user
