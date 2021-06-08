@@ -23,7 +23,7 @@ describe("Starting to run tests", function () {
   //importTest("Game scheduling", "./Game_Schedule/games_utils_Unit_Testing.js");
   //importTest("Login", "./API/LoginAPI_Unit_Testing.js");
   //importTest("Team Tests", "./UnitTests/Teams_Unit_Testing.js");
-  importTest("Regression Tests", "./RegressionTests/Regression_Testing.js");
+  // importTest("Regression Tests", "./RegressionTests/Regression_Testing.js");
   
   // after(async function () {
   //     console.log("Clear the fake username from the DB");

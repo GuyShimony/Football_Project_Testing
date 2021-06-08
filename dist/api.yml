@@ -937,13 +937,13 @@ components:
       type: object
       properties:
         league_name:
-          type: "String"
+          type: "string"
           example: "Superliga"
         current_season_name:
-          type: "String"
+          type: "string"
           example: "2020/2021"
         current_stage_name:
-          type: "String"
+          type: "string"
           example: "Europa League Play-offs - Final"
         next_game:
           type: object
@@ -953,25 +953,25 @@ components:
       type: object
       properties:
         game_date:
-          type: "String"
+          type: "string"
           example: "2021-10-28"
         game_time:
-          type: "String"
+          type: "string"
           example: "17:00:00"
         home_team:
-          type: "String"
+          type: "string"
           example: "Midtjylland"
         home_team_id:
           type: "integer"
           example: 939
         away_team:
-          type: "String"
+          type: "string"
           example: "Horsens"
         away_team_id:
           type: "integer"
           example: 211
         stadium:
-          type: "String"
+          type: "string"
           example: "MCH Arena"
         head_referee:
           type: object
@@ -1006,25 +1006,25 @@ components:
       type: object
       properties:
         game_date:
-          type: "String"
+          type: "string"
           example: "2021-01-13"
         game_time:
-          type: "String"
+          type: "string"
           example: "19:00:00"
         home_team:
-          type: "String"
+          type: "string"
           example: "Midtjylland"
         home_team_id:
           type: "integer"
           example: 939
         away_team:
-          type: "String"
+          type: "string"
           example: "Horsens"
         away_team_id:
           type: "integer"
           example: 211
         stadium:
-          type: "String"
+          type: "string"
           example: "MCH Arena"
         head_referee:
           type: object
@@ -1055,10 +1055,10 @@ components:
           type: "integer"
           exmple: 0
         name:
-          type: "String"
+          type: "string"
           example: "Denis Shalayev"
         role:
-          type: "String"
+          type: "string"
           example: "Box /Head/ line"
 
     GameEvent:
@@ -1066,17 +1066,17 @@ components:
       type: object
       properties:
         event_date:
-          type: "String"
+          type: "string"
           example: "2021-01-13"
         event_time:
-          type: "String"
+          type: "string"
           example: "20:05:00"
         event_game_time:
           type: "integer"
           format: "int64"
           example: 65  
         event:
-          type: "String"
+          type: "string"
           example: "Foul Anders Hoff"
 
     Player:

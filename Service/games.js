@@ -26,26 +26,26 @@ router.get("/currentStageGames", async (req, res, next) => {
   /**
  * Check if the user is a league representive by middleware
  */
-// router.use(async function (req, res, next) {
-//   if (req.session && req.session.userid) {
-//     console.log("Checking if the user is a league representive")
+router.use(async function (req, res, next) {
+  if (req.session && req.session.userid) {
+    console.log("Checking if the user is a league representive")
 
-//     try{
-//       const users = await DButils.execQuery("SELECT userid FROM LeagueRepsUsers")
-//       if (users.find((x) => x.userid === req.session.userid)) {
-//         console.log("The user is a leagure representive")
-//         next();
-//       }
-//       else 
-//         res.status(401).send("Privilege Error: The following action is only permitted to league representives");
+    try{
+      const users = await DButils.execQuery("SELECT userid FROM LeagueRepsUsers")
+      if (users.find((x) => x.userid === req.session.userid)) {
+        console.log("The user is a leagure representive")
+        next();
+      }
+      else 
+        res.status(401).send("Privilege Error: The following action is only permitted to league representives");
 
 
-//   } catch (error) {
-//       next(error);}
-//     }
-//   else
-//     res.status(401).send("Privilege Error: The following action is only permitted to league representives Or you have not Logged in first")
-// });
+  } catch (error) {
+      next(error);}
+    }
+  else
+    res.status(401).send("Privilege Error: The following action is only permitted to league representives Or you have not Logged in first")
+});
 
 router.get("/all", async (req, res, next) => {
   try {
@@ -79,9 +79,9 @@ router.post("/addGame", async (req, res, next) => {
         home_team_id = ids[0]
         away_team_id = ids[1]
       }
-
+      
       //check if referee have been chosen twice
-      if (linereferee1.id==linereferee2.id || boxreferee1.id==boxreferee1.id)
+      if (linereferee1.user_id==linereferee2.user_id ||boxreferee1.user_id==boxreferee2.user_id)
         throw { status: 406, message: "Bad game input. Please check the date or teams or referees" };
 
       // Check if the game's date match the current season. If not send an error to the user
@@ -98,7 +98,7 @@ router.post("/addGame", async (req, res, next) => {
 
       await games_utils.addFutureGame(game_date,game_time,home_team,home_team_id,away_team,
         away_team_id,stadium,headreferee, linereferee1, linereferee2,boxreferee1, boxreferee2)
-
+      console.log('the game is added')
       res.status(201).send("The game was successfully added");
       } catch (error) {
       next(error);

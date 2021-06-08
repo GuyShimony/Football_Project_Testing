@@ -1,6 +1,36 @@
 const DButils = require("./DButils");
 
 /*
+check if name param match the user full name
+*/
+async function checkuserFullName(user_id,name){
+  const users = await DButils.execQuery(
+    `SELECT firstname, lastname FROM Users WHERE userid='${user_id}'`
+  );
+ const fullname = users[0].firstname + " " + users[0].lastname;
+ return fullname.toLowerCase()!=name.toLowerCase()
+}
+
+/*
+check if the referee is already in the referees DB
+*/
+async function checkIfRefereeExist(user_id){
+  const referee = await DButils.execQuery(
+    `SELECT * FROM Referees WHERE userid='${user_id}'`
+  );
+  return referee.length!=0
+}
+
+/*
+Add the referee to the referees DB
+*/
+async function addReferee(user_id,name,role){
+  await DButils.execQuery(
+    `INSERT INTO dbo.Referees (userid, Name, RefereeType) VALUES ('${user_id}','${name}', '${role}')`
+  );
+}
+
+/*
 Add the favorite players to the users DB
 */
 async function markPlayerAsFavorite(user_id, player_id) {
@@ -107,3 +137,6 @@ exports.isGameInFuture = isGameInFuture;
 exports.checkIfFreeHeadReferees = checkIfFreeHeadReferees;
 exports.checkIfFreeLineReferees = checkIfFreeLineReferees;
 exports.checkIfFreeBoxReferees = checkIfFreeBoxReferees;
+exports.checkIfRefereeExist = checkIfRefereeExist;
+exports.checkuserFullName = checkuserFullName;
+exports.addReferee = addReferee;

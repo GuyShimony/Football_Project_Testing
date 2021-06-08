@@ -97,8 +97,7 @@ async function getAllPastGames(){
 async function getAllUpcomingGames(){
   const games = []
   const now = app_utils.formatDateTime(new Date())
-  const future_games = await DButils.execQuery(`SELECT Games.gameid, Games.GameDateTime, Games.HomeTeam, Games.AwayTeam, 
-  Games.Stadium, Games.Referee From Games WHERE GameDateTime >'${now}' ORDER BY GameDateTime `);
+  const future_games = await DButils.execQuery(`SELECT * FROM Games WHERE GameDateTime >'${now}' ORDER BY GameDateTime `);
   future_games.map((game) =>{
       // Update the datetime to be in the correct format - YY:MM:DD HH:MM:SS.nnnn
       game['GameDateTime'] = app_utils.formatDateTime(game['GameDateTime'])
@@ -187,7 +186,7 @@ async function addEventToGame(game_id,event){
       // The following command return the last isnerted item to a table
       const last_event = await DButils.execQuery(`SELECT eventid FROM Events
        WHERE EventDate = '${event.event_date}' AND EventTime = '${event.event_time}' AND EventGameTime =  ${event.event_game_time}`)
-      DButils.execQuery(`INSERT INTO GamesEvents ([gameid], [eventid]) VALUES (${game_id}, ${last_event[0].eventid})`)
+      await DButils.execQuery(`INSERT INTO GamesEvents ([gameid], [eventid]) VALUES (${game_id}, ${last_event[0].eventid})`)
     }
 }
 

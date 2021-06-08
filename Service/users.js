@@ -32,25 +32,17 @@ router.post("/registerAsReferee", async (req, res, next) => {
     const role = req.body.role;
 
     // check input param
-    const users = await DButils.execQuery(
-       `SELECT firstname, lastname FROM Users WHERE userid='${user_id}'`
-     );
     const roles = ["box", "line", "head"];
-    const fullname = users[0].firstname + " " + users[0].lastname;
-    if (fullname.toLowerCase()!=name.toLowerCase() || !(roles.includes(role.toLowerCase())))
+    if (await users_utils.checkuserFullName(user_id,name) || !(roles.includes(role.toLowerCase())))
        throw { status: 406, message: "Bad input. Please check the name or the role" };
 
     // Check if referee already added
-    const referee = await DButils.execQuery(
-      `SELECT * FROM Referees WHERE userid='${user_id}'`
-    );
-    if (referee.length!=0)
+    if (await users_utils.checkIfRefereeExist(user_id))
         throw { status: 405, message: "Referee already exists" };
       
     // add the new referee
-    await DButils.execQuery(
-      `INSERT INTO dbo.Referees (userid, Name, RefereeType) VALUES ('${user_id}','${name}', '${role}')`
-    );
+    await users_utils.addReferee(user_id,name,role)
+    console.log('Referee' +user_id +'added')
     res.status(201).send("Referee added");
   } catch (error) {
     next(error);
