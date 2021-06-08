@@ -72,6 +72,30 @@ async function isGameInFuture(game_id) {
   return false
 }
 
+/*
+The method will return all head referee that dont playes in this date and time.
+*/
+async function checkIfFreeHeadReferees(game_date,game_time){
+  const referees = await DButils.execQuery(`SELECT * From Referees WHERE RefereeType='Head' AND userid NOT IN (SELECT HeadRefereeId From Games WHERE GameDateTime >= DATEADD(HOUR,-2,'${game_date} ${game_time}') AND GameDateTime<=DATEADD(HOUR,2,'${game_date} ${game_time}'))`);
+  return referees;
+}
+
+/*
+The method will return all line referee that dont playes in this date and time.
+*/
+async function checkIfFreeLineReferees(game_date,game_time){
+  const referees = await DButils.execQuery(`SELECT * From Referees WHERE RefereeType='Line' AND userid NOT IN (SELECT LineRefereeId1 From Games WHERE GameDateTime >= DATEADD(HOUR,-2,'${game_date} ${game_time}') AND GameDateTime<=DATEADD(HOUR,2,'${game_date} ${game_time}')) AND userid NOT IN (SELECT LineRefereeId2 From Games WHERE GameDateTime >= DATEADD(HOUR,-2,'${game_date} ${game_time}') AND GameDateTime<=DATEADD(HOUR,2,'${game_date} ${game_time}'))`);
+  return referees;
+}
+
+/*
+The method will return all box referee that dont playes in this date and time.
+*/
+async function checkIfFreeBoxReferees(game_date,game_time){
+  const referees = await DButils.execQuery(`SELECT * From Referees WHERE RefereeType='Box' AND userid NOT IN (SELECT BoxRefereeId1 From Games WHERE GameDateTime >= DATEADD(HOUR,-2,'${game_date} ${game_time}') AND GameDateTime<=DATEADD(HOUR,2,'${game_date} ${game_time}')) AND userid NOT IN (SELECT BoxRefereeId2 From Games WHERE GameDateTime >= DATEADD(HOUR,-2,'${game_date} ${game_time}') AND GameDateTime<=DATEADD(HOUR,2,'${game_date} ${game_time}'))`);
+  return referees;
+}
+
 exports.markPlayerAsFavorite = markPlayerAsFavorite;
 exports.markTeamAsFavorite = markTeamAsFavorite;
 exports.markGameAsFavorite = markGameAsFavorite;
@@ -80,3 +104,6 @@ exports.getFavoritePlayers = getFavoritePlayers;
 exports.getFavoriteTeams = getFavoriteTeams;
 exports.getFavoriteGames = getFavoriteGames;
 exports.isGameInFuture = isGameInFuture;
+exports.checkIfFreeHeadReferees = checkIfFreeHeadReferees;
+exports.checkIfFreeLineReferees = checkIfFreeLineReferees;
+exports.checkIfFreeBoxReferees = checkIfFreeBoxReferees;

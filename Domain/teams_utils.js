@@ -94,13 +94,22 @@ async function gatAllTeams(game_date, game_time,team_name=null){
   const teams = await axios.get(`${api_domain}/teams/season/${SEASONID}`, {
     params: {
       api_token: process.env.api_token,
-      include: "league"
+      include: "league, venue"
     },
   })
   let teams_info = teams.data.data.map( team => {
-    return {
-      id: team.id,
-      name: team.name,
+    stadium=team.venue.data.name;
+    if (team_name!=null){
+      return {
+        id: team.id,
+        name: team.name,
+    }}
+    else{
+      return {
+        id: team.id,
+        name: team.name,
+        stadium: stadium
+    }
   }})
   let teams_after_filter= await game_utils.checkIfTeamHaveGame(teams_info, game_date, game_time,team_name);
   return teams_after_filter;
@@ -110,6 +119,7 @@ async function gatAllTeams(game_date, game_time,team_name=null){
 
 exports.getTeamsInfo = getTeamsInfo;
 exports.getTeamIdByName = getTeamIdByName;
+exports.checkTeamLeagueByTeamId = checkTeamLeagueByTeamId;
 exports.gatAllTeams = gatAllTeams;
 exports.getPreviewTeamData = getPreviewTeamData
 exports.checkTeamLeagueByTeamId = checkTeamLeagueByTeamId

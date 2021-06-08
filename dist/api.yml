@@ -264,7 +264,7 @@ paths:
         "405":
           description: "The teams already have a match in that date & time"
         "406":
-          description: "Bad game input. Please check the date or teams"
+          description: "Bad game input. Please check the date or teams or referees"
         "404":
           description: "URL not found"
         "401":
@@ -335,7 +335,7 @@ paths:
           content:  
             application/json:    
               schema:            
-                $ref: "#/components/schemas/TeamName"
+                $ref: "#/components/schemas/TeamNameAndStadium"
 
   /games/showTeams/{game_date}/time/{game_time}/awayteam/{team_name}:
     get:
@@ -379,6 +379,7 @@ paths:
             application/json:    
               schema:            
                 $ref: "#/components/schemas/TeamName"
+
   /games/showHeadReferees/{game_date}/time/{game_time}:
     get:
       tags:
@@ -413,7 +414,79 @@ paths:
           content:  
             application/json:    
               schema:            
-                $ref: "#/components/schemas/TeamName"
+                $ref: "#/components/schemas/Referee"
+    
+  /games/showLineReferees/{game_date}/time/{game_time}:
+    get:
+      tags:
+        - "Games"
+      summary: "Get all available line referees"
+      description: "Return all head referees available"
+      parameters:
+      - name: "game_date"
+        in: "path"
+        description: "Game date"
+        required: true
+        schema:
+          type: "string"
+          example: "2021-01-13"
+      - name: "game_time"
+        in: "path"
+        description: "Game time"
+        required: true
+        schema:
+          type: "string"
+          example: "19:00:00"
+
+      responses:
+        "500":
+          description: "Internal Server error"
+        "404":
+          description: "URL not found"
+        "401":
+          description: ""Privilege Error: The following action is only permitted to league representives"
+        "200":
+          description: "successful operation"
+          content:  
+            application/json:    
+              schema:            
+                $ref: "#/components/schemas/Referee"
+
+  /games/showBoxReferees/{game_date}/time/{game_time}:
+    get:
+      tags:
+        - "Games"
+      summary: "Get all available box referees"
+      description: "Return all box referees available"
+      parameters:
+      - name: "game_date"
+        in: "path"
+        description: "Game date"
+        required: true
+        schema:
+          type: "string"
+          example: "2021-01-13"
+      - name: "game_time"
+        in: "path"
+        description: "Game time"
+        required: true
+        schema:
+          type: "string"
+          example: "19:00:00"
+
+      responses:
+        "500":
+          description: "Internal Server error"
+        "404":
+          description: "URL not found"
+        "401":
+          description: ""Privilege Error: The following action is only permitted to league representives"
+        "200":
+          description: "successful operation"
+          content:  
+            application/json:    
+              schema:            
+                $ref: "#/components/schemas/Referee"
         
   /games/addEvent:
     post:
@@ -900,9 +973,22 @@ components:
         stadium:
           type: "String"
           example: "MCH Arena"
-        referee:
+        head_referee:
           type: object
           $ref: "#/components/schemas/Referee"
+        line_referee1:
+          type: object
+          $ref: "#/components/schemas/Referee"
+        line_referee2:
+          type: object
+          $ref: "#/components/schemas/Referee"
+        box_referee1:
+          type: object
+          $ref: "#/components/schemas/Referee"
+        box_referee2:
+          type: object
+          $ref: "#/components/schemas/Referee"
+
 
     Game:
       required:
@@ -911,6 +997,11 @@ components:
         - home_team
         - away_team
         - stadium
+        - head_referee
+        - Line_referee1
+        - Line_referee2
+        - Box_referee1
+        - Box_referee2
 
       type: object
       properties:
@@ -935,7 +1026,19 @@ components:
         stadium:
           type: "String"
           example: "MCH Arena"
-        referee:
+        head_referee:
+          type: object
+          $ref: "#/components/schemas/Referee"
+        line_referee1:
+          type: object
+          $ref: "#/components/schemas/Referee"
+        line_referee2:
+          type: object
+          $ref: "#/components/schemas/Referee"
+        box_referee1:
+          type: object
+          $ref: "#/components/schemas/Referee"
+        box_referee2:
           type: object
           $ref: "#/components/schemas/Referee"
         results:
@@ -948,12 +1051,15 @@ components:
     Referee:
       type: object
       properties:
+        user_id:
+          type: "integer"
+          exmple: 0
         name:
           type: "String"
           example: "Denis Shalayev"
         role:
           type: "String"
-          example: "Box"
+          example: "Box /Head/ line"
 
     GameEvent:
       description: "An Event in a game. Options are: Red Card, Yellow Card, Foul, Offside, Goal, Injury, Subsitution"
@@ -1153,3 +1259,17 @@ components:
         name:
             type: "string"
             example: "Horsens"
+
+    TeamNameAndStadium:
+      type: object
+      properties:
+        id:
+          type: "integer"
+          format: "int64"
+          example: 211
+        name:
+          type: "string"
+          example: "Horsens"
+        stadium:
+          type: "string"
+          exmple: "MCH Arena"
