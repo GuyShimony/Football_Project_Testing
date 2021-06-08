@@ -2,9 +2,6 @@ let common = require("../common.js");
 
 
 let users_utils = require(common.path.join(__dirname, '../../',"Domain","users_utils.js"));
-// addReferee, checkIfRefereeExist, checkIfFreeHeadReferees, checkIfFreeLineReferees
-// checkIfFreeBoxReferees
-
 
 /*
 Test referees scheduling procedure with positive (OK) test and negative (Fail) tests.
