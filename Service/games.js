@@ -176,4 +176,26 @@ router.get("/showBoxReferees/:game_date/time/:game_time", async (req, res, next)
   }
 });
 
+/* !!!!!!!!!!!!!!
+ADDDED METHOD FOR REGRESSION TEST FOR USE CASE -> 
+This method will fall in order to check that the corresponding test for system does not crash afterwards
+*/ 
+router.get("/deletegame", async (req, res, next) => {
+  try {
+
+    const game_date = req.body.game_date;
+    const game_time = req.body.game_time
+
+    // Check if the game's date match the current season. If not send an error to the user
+    if (!await season_utils.checkDateMatchCurrentSeason(new Date(game_date)))
+      throw { status: 406, message: "Bad game input. Please check the date or teams or referees" };
+    let game_sched = game_date +' '+ game_time
+    await games_utils.deleteGame(game_sched)
+  
+    res.status(201).send("The game was deleted successfully");
+  } catch (error) {
+    next(error);
+  }
+});
+
   module.exports = router;

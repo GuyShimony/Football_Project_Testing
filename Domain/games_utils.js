@@ -221,16 +221,16 @@ async function deleteGame(game_time){
     let gameid_to_delete = await DButils.execQuery(`SELECT gameid FROM Games Where GameDateTime = '${game_time}'`)
     await DButils.execQuery(`DELETE FROM Games Where gameid = '${gameid_to_delete[0]["gameid"]}'`)
     let eventids_to_delete = await DButils.execQuery(`SELECT eventid FROM GamesEvents Where gameid = '${gameid_to_delete[0]["gameid"]}'`)
-    await DButils.execQuery(`DELETE FROM GamesEvents Where gameid = '${gameid_to_delete[0]["gameid"]}'`)
-    //MISSING CORRESPONDING EVENTS DELETION
-    // eventids_to_delete.map(async (eventid) =>{
-    //   await DButils.execQuery(`DELETE From Events WHERE 
-    //   eventid = '${eventid}'`);
-    // });
+    await DButils.execQuery(`DELETE FROM GamesEvents Where gamesids = '${gameid_to_delete[0]["gameid"]}'`)
+    //MISSING CORRESPONDING EVENTS DELETION FELL BEFORE (reason -> wrong column input [gamesids])
+    eventids_to_delete.map(async (eventid) =>{
+      await DButils.execQuery(`DELETE From Events WHERE 
+      eventid = '${eventid}'`);
+    });
     return true
   }
   catch(error){
-    return false
+    next(error);
   }
 }
 

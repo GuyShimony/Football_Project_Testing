@@ -20,7 +20,7 @@ describe("Starting to run tests", function () {
   //   console.log( "Creating a fake user name for the api tests in the DB");
   //   await common.createFakeUser();
   // });
-  importTest("Game scheduling", "./Game_Schedule/games_utils_Unit_Testing.js");
+  //importTest("Game scheduling", "./Game_Schedule/games_utils_Unit_Testing.js");
   //importTest("Login", "./API/LoginAPI_Unit_Testing.js");
   //importTest("Team Tests", "./UnitTests/Teams_Unit_Testing.js");
   importTest("Regression Tests", "./RegressionTests/Regression_Testing.js");
