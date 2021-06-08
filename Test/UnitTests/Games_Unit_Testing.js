@@ -1,3 +1,4 @@
+const { RequestError } = require("mssql");
 let common = require("../common.js");
 
 
@@ -9,36 +10,6 @@ let season_utils = require(common.path.join(__dirname, '../../',"Domain","season
 Test game adding procedure with positive (OK) test and negative (Fail) tests.
 All the functions in the auth module related to the game adding Use Case will be tested
 */
-
-// describe('#getTeamIdByName()', function() {
-
-//     context('with valid teams names', function() {
-//       it('should return 86', async  function() {
-//         const id = await teams_utils.getTeamIdByName("Silkeborg")
-//         common.expect(id).to.equal(86)
-//       })
-//     })
-    
-//     context('with no arguments', function() {
-//       it('should throw error', async  function(){
-//         await teams_utils.getTeamIdByName("").catch( function(error){
-//            // add an assertion to check the error
-//          common.expect(function() { throw error })
-//         .to.throw(Error);
-//         })
-//       })
-//     })
-
-//     context('with team name that does not exists', function() {
-//       it('should throw error', async  function(){
-//         await teams_utils.getTeamIdByName("aaaaaaa").catch( function(error){
-//            // add an assertion to check the error
-//          common.expect(function() { throw error })
-//         .to.throw(Error);
-//         })
-//       })
-//     })
-//   })
 
 
 
@@ -58,22 +29,8 @@ All the functions in the auth module related to the game adding Use Case will be
 //     })
 //   })
     
-//   })
-
-// describe('#checkTeamLeagueByTeamId()', function() {
-//   context('with Superliga team', function() {
-//     it('should return true', async  function() {
-//       const result = await teams_utils.checkTeamLeagueByTeamId(86)
-//       common.expect(result).to.equal(true)
-//     })
-//   })
-//   context('with team that does not belong to Superliga', function() {
-//     it('should return false', async  function() {
-//       const result = await teams_utils.checkTeamLeagueByTeamId(930)
-//       common.expect(result).to.equal(false)
-//     })
-//   })
 // })
+
 
 // describe('#checkIfMathcExists()', function() {
 
@@ -257,21 +214,21 @@ All the functions in the auth module related to the game adding Use Case will be
 //   })
 
 
-//   describe('#getAllUpcomingGames()', function() {
-//     const now = new Date()
-//     context('get all future games', function() {
-//       it('should be six games all with datetime more than now', async  function() {
-//         const result = await games_utils.getAllUpcomingGames()
-//         common.expect(result.length).to.equal(6)
-//         result.map(game => {
-//           // Convert each date to Date object to be comparable
-//           let game_datetime = new Date(game.GameDateTime)
-//           common.expect(game_datetime).to.be.above(now)
-//         })
-//       })
-//     })
+  // describe('#getAllUpcomingGames()', function() {
+  //   const now = new Date()
+  //   context('get all future games', function() {
+  //     it('should be six games all with datetime more than now', async  function() {
+  //       const result = await games_utils.getAllUpcomingGames()
+  //       common.expect(result.length).to.equal(6)
+  //       result.map(game => {
+  //         // Convert each date to Date object to be comparable
+  //         let game_datetime = new Date(game.GameDateTime)
+  //         common.expect(game_datetime).to.be.above(now)
+  //       })
+  //     })
+  //   })
 
-//   })
+  // })
 
 //   describe('#getGamesInfo()', function() {
 //     context('valid games ids', function() {
@@ -301,7 +258,7 @@ All the functions in the auth module related to the game adding Use Case will be
 //         it('should throw error', async  function() {
 //           await games_utils.getGamesInfo([0,13])
 //           .catch( function(error){
-//             common.expect(function() { throw error })
+//             common.expect(function() { console.log("test");throw new Error() })
 //             .to.throw(Error)
 //           })
 //         })
@@ -311,7 +268,7 @@ All the functions in the auth module related to the game adding Use Case will be
 //           it('should throw error', async  function() {
 //             await games_utils.getGamesInfo([null])
 //             .catch( function(error){
-//             common.expect(function() { throw error })
+//             common.expect(function() { throw new Error() })
 //             .to.throw(Error)
 //           })
 //       })
@@ -375,26 +332,74 @@ All the functions in the auth module related to the game adding Use Case will be
 // })
 
 
-describe('#addEventToGame()', function() {
-  context('valid games and events', function() {
-    it('should add score to game', async  function() {
-      const test_data = {
-        gameid: 1,
-        event: {
-          event_date:"2021-01-03",
-          event_time: "19:00:00",
-          event_game_time: 65,
-          event: "Red card for messi"
-      }
-      }
-      await games_utils.addEventToGame(test_data.gameid, test_data.event)
-      const result = await common.DButils.execQuery(`SELECT Event From Events WHERE 
-      EventDate = '${test_data.event.event_date}' AND 
-      EventTime = '${test_data.event.event_time}' AND 
-      EventGameTime = ${test_data.event.event_game_time}`)
-      common.expect(result[0].Event).to.equal(test_data.event.event)
+// describe('#addEventToGame()', function() {
+//   context('valid games and events', function() {
+//     it('should add score to game', async  function() {
+//       const test_data = {
+//         gameid: 1,
+//         event: {
+//           event_date:"2021-01-03",
+//           event_time: "19:00:00",
+//           event_game_time: 65,
+//           event: "Red card for messi"
+//       }
+//       }
+//       await games_utils.addEventToGame(test_data.gameid, test_data.event)
+//       const result = await common.DButils.execQuery(`SELECT Event From Events WHERE 
+//       EventDate = '${test_data.event.event_date}' AND 
+//       EventTime = '${test_data.event.event_time}' AND 
+//       EventGameTime = ${test_data.event.event_game_time}`)
+//       common.expect(result[0].Event).to.equal(test_data.event.event)
+//     })
+//   })
+
+//   context('not existing game', function() {
+//     it('should throw error', async  function() {
+//       const test_data = {
+//         gameid: null,
+//         event: {
+//           event_date:"2021-01-03",
+//           event_time: "19:00:00",
+//           event_game_time: 65,
+//           event: "Red card for messi"
+//       }
+//       }
+//      await games_utils.addEventToGame(test_data.gameid, test_data.event)
+//      .catch(function(error){
+//         common.expect(function() {
+//            throw new Error('Throw error test') })
+//         .to.throw(Error, "Throw error test")
+//       })
+//     })
+//   })
+// })
+
+describe('#removePastGames()', function() {
+  before(async function() {
+    try{
+    // Insert a past game to the users favorite table for testing
+    console.log("Insert game 1 with datetime 2021-01-03 19:00:00 to the UsersFavoriteGames Table")
+    await common.DButils.execQuery("INSERT INTO UsersFavoriteGames ([userid],[gameid]) VALUES (1,1)")
+    }
+    catch{
+      console.log("Game already exits in the DB")
+    }
+  })
+  const now = new Date()
+  context('activate function', function() {
+    it('should delete all games with dates less than now', async  function() {
+      await games_utils.removePastGames()
+      const result = await common.DButils.execQuery("Select * From UsersFavoriteGames")
+      result.map(game => {
+        // Convert each date to Date object to be comparable
+        let game_datetime = new Date(game.GameDateTime)
+        common.expect(game_datetime).to.be.above(now)
+      })
     })
-    // TOOD: Negative test and removeAllPastGames
   })
 
+  after(async function() {
+    // Insert a past game to the users favorite table for testing
+    console.log("Deleting game 1 from the the UsersFavoriteGames Table")
+    await common.DButils.execQuery("DELETE FROM UsersFavoriteGames WHERE gameid = 1")})
 })
