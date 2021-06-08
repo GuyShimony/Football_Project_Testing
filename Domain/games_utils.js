@@ -1,8 +1,6 @@
-const axios = require("axios");
-const api_domain = "https://soccer.sportmonks.com/api/v2.0";
+
 const app_utils = require("./app_utils");
 const DButils = require("./DButils");
-const teams_utils = require("./teams_utils");
 
 /*
 The method will query the games DB for the next scheduled game
