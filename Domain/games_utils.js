@@ -187,7 +187,7 @@ async function addEventToGame(game_id,event){
       // The following command return the last isnerted item to a table
       const last_event = await DButils.execQuery(`SELECT eventid FROM Events
        WHERE EventDate = '${event.event_date}' AND EventTime = '${event.event_time}' AND EventGameTime =  ${event.event_game_time}`)
-      DButils.execQuery(`INSERT INTO GamesEvents ([gameid], [eventid]) VALUES (${game_id}, ${last_event[0].eventid})`)
+      await DButils.execQuery(`INSERT INTO GamesEvents ([gameid], [eventid]) VALUES (${game_id}, ${last_event[0].eventid})`)
     }
 }
 
