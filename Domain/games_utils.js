@@ -48,7 +48,9 @@ async function getTeamUpcomingGames(team_id){
 
 /*
 The method will return the teams that aren't playing in the date and time 
-given in the input
+given in the input.
+teams -> list of teams 
+return -> list of teams that are free to play in the game's datetime
 */
 async function checkIfTeamHaveGame(teams,game_date,game_time,team_name=null){
   const upcoming_teams = await DButils.execQuery(`SELECT AwayTeamID,HomeTeamID From Games WHERE GameDateTime >= DATEADD(HOUR,-2,'${game_date} ${game_time}') AND GameDateTime<=DATEADD(HOUR,2,'${game_date} ${game_time}')`);
