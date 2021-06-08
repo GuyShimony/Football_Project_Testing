@@ -416,3 +416,113 @@ describe('#removePastGames()', function() {
     console.log("Deleting game 1 from the the UsersFavoriteGames Table")
     await common.DButils.execQuery("DELETE FROM UsersFavoriteGames WHERE gameid = 1")})
 })
+
+
+describe('#removePastGames()', function() {
+  before(async function() {
+    try{
+    // Insert a past game to the users favorite table for testing
+    console.log("Insert game 1 with datetime 2021-01-03 19:00:00 to the UsersFavoriteGames Table")
+    await common.DButils.execQuery("INSERT INTO UsersFavoriteGames ([userid],[gameid]) VALUES (1,1)")
+    }
+    catch{
+      console.log("Game already exits in the DB")
+    }
+  })
+  const now = new Date()
+  context('activate function', function() {
+    it('should delete all games with dates less than now', async  function() {
+      await games_utils.removePastGames()
+      const result = await common.DButils.execQuery("Select * From UsersFavoriteGames JOIN Games ON Games.gameid = UsersFavoriteGames.gameid")
+      result.map(game => {
+        // Convert each date to Date object to be comparable
+        let game_datetime = new Date(game.GameDateTime)
+        common.expect(game_datetime).to.be.above(now)
+      })
+    })
+  })
+
+  after(async function() {
+    // Insert a past game to the users favorite table for testing
+    console.log("Deleting game 1 from the the UsersFavoriteGames Table")
+    await common.DButils.execQuery("DELETE FROM UsersFavoriteGames WHERE gameid = 1")})
+})
+
+describe('#checkIfTeamHaveGame()', function() {
+  
+  context('with exisitng game datetime', function() {
+    const test_data = {
+      teams: [
+        {id: 86, name: "Silkeborg"},
+        {id: 390, name: "SønderjyskE"},
+        {id: 939, name: "Midtjylland"},  
+        {id: 2356, name: "Randers"}],
+      game_date: "2021-11-05",
+      game_time: "21:05:00",
+      team_name: "Silkeborg"
+    }
+    it('should return list of 1 team - Midtjylland, ', async  function() {
+      const result = await games_utils.checkIfTeamHaveGame(
+        test_data.teams, test_data.game_date, test_data.game_time, test_data.team_name
+      )
+      common.expect(result.length).to.equal(1)
+      common.expect("Midtjylland").to.be.oneOf(result.map(team => {return team.name}))
+    })
+  })
+
+  context('with exisitng game datetime and no team_name', function() {
+    const test_data = {
+      teams: [
+        {id: 86, name: "Silkeborg"},
+        {id: 390, name: "SønderjyskE"},
+        {id: 939, name: "Midtjylland"},  
+        {id: 2356, name: "Randers"}],
+      game_date: "2021-11-05",
+      game_time: "21:05:00",
+    }
+    it('should return list of 2 teams, ', async  function() {
+      const result = await games_utils.checkIfTeamHaveGame(
+        test_data.teams, test_data.game_date, test_data.game_time, test_data.team_name
+      )
+      common.expect(result.length).to.equal(2)
+      common.expect("Midtjylland").to.be.oneOf(result.map(team => {return team.name}))
+      common.expect("Silkeborg").to.be.oneOf(result.map(team => {return team.name}))
+
+    })
+  })
+
+  context('with non exisitng game datetime and no team_name', function() {
+    const test_data = {
+      teams: [
+        {id: 86, name: "Silkeborg"},
+        {id: 390, name: "SønderjyskE"},
+        {id: 939, name: "Midtjylland"},  
+        {id: 2356, name: "Randers"}],
+      game_date: "2021-09-05",
+      game_time: "21:05:00",
+    }
+    it('should return list of 4 teams', async  function() {
+      const result = await games_utils.checkIfTeamHaveGame(
+        test_data.teams, test_data.game_date, test_data.game_time, test_data.team_name
+      )
+      common.expect(result.length).to.equal(4)
+    })
+  })
+
+  context('with invalid data', function() {
+    const test_data = {
+      teams: null,
+      game_date: "2021-05",
+      game_time: "21:05:00",
+    }
+    it('should throw error ', async  function() {
+      const result = await games_utils.checkIfTeamHaveGame(
+        test_data.teams, test_data.game_date, test_data.game_time, test_data.team_name
+      ).catch(function(error){
+        common.expect(function() {
+          throw new Error('Throw error test') })
+          .to.throw(Error)
+        })
+    })
+  })
+})
