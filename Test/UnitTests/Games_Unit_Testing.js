@@ -1,7 +1,4 @@
-const { RequestError } = require("mssql");
 let common = require("../common.js");
-
-
 let games_utils = require(common.path.join(__dirname, '../../',"Domain","games_utils.js"));
 let season_utils = require(common.path.join(__dirname, '../../',"Domain","season_utils.js"));
 
@@ -9,8 +6,6 @@ let season_utils = require(common.path.join(__dirname, '../../',"Domain","season
 Test game adding procedure with positive (OK) test and negative (Fail) tests.
 All the functions in the auth module related to the game adding Use Case will be tested
 */
-
-
 
 describe('#checkDateMatchCurrentSeason()', function() {
 
