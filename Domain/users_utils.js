@@ -16,7 +16,7 @@ check if the referee is already in the referees DB
 */
 async function checkIfRefereeExist(user_id){
   const referee = await DButils.execQuery(
-    `SELECT * FROM Referees WHERE userid='${user_id}'`
+    `SELECT * FROM Referees WHERE userid=${user_id}`
   );
   return referee.length!=0
 }
