@@ -15,10 +15,9 @@ describe('/POST addGame', () => {
     before(async()=>{
       old_upcoming_games = await games_utils.getAllUpcomingGames()
     })
-    it('should return 201',  function() {    
+    it('should return 201',  function(done) {    
       var agent = common.chai.request.agent(`${api_domain}`)
      
-
       agent.post('/login')
         .send({username: "johnc", password: "1234John"})
         .then((err, res) => {
@@ -38,10 +37,12 @@ describe('/POST addGame', () => {
             box_referee1: {user_id:6, name:"Bobby Madden", role:"Box"},
             box_referee2: {user_id: 2, name:"Denis Shalayev", role:"Box"}
           })
-          .then((err, res) => {
+          .then((res, err) => {
            games_utils.getAllUpcomingGames().then(
              res => {
-               common.expect(res.length).to.be.equal(old_upcoming_games.length +1)})
+               common.expect(res.length).to.be.equal(old_upcoming_games.length+1)
+                done()})
+
         })
       })
 
