@@ -68,8 +68,7 @@ async function checkIfTeamHaveGame(teams,game_date,game_time,team_name=null){
 */
 async function getAllPastGames(){
   const now = app_utils.formatDateTime(new Date())
-  const past_games = await DButils.execQuery(`SELECT Games.gameid, Games.GameDateTime, Games.HomeTeam, Games.AwayTeam, 
-  Games.Stadium, Games.Result, Games.Referee
+  const past_games = await DButils.execQuery(`SELECT *
   FROM Games WHERE GameDateTime <'${now}' ORDER BY GameDateTime `);
 
   return Promise.all(past_games.map(async (game) => {
@@ -143,12 +142,15 @@ The method will get all the data of a game and will add it to the games DB
 The Game should be a past game
 */
 async function addFutureGame(game_date,game_time, HomeTeam, HomeTeamID,AwayTeam,
-  AwayTeamID,stadium){
+  AwayTeamID,stadium, headreferee, linereferee1, linereferee2,boxreferee1, boxreferee2){
     await DButils.execQuery(`INSERT INTO Games
     ([GameDateTime],[HomeTeam],[HomeTeamID],[AwayTeam],
-      [AwayTeamID], [Stadium])
+      [AwayTeamID], [Stadium], [HeadReferee], [HeadRefereeID], [LineReferee1], [LineRefereeID1]
+      , [LineReferee2], [LineRefereeID2], [BoxReferee1], [BoxRefereeID1], [BoxReferee2], [BoxRefereeID2])
     VALUES ('${game_date} ${game_time}', '${HomeTeam}',${HomeTeamID},'${AwayTeam}',${AwayTeamID}
-    ,'${stadium}')`);
+    ,'${stadium}', '${headreferee.name}','${headreferee.user_id}', '${linereferee1.name}','${linereferee1.user_id}',
+    '${linereferee2.name}','${linereferee2.user_id}', '${boxreferee1.name}','${boxreferee1.user_id}',
+    '${boxreferee2.name}','${boxreferee2.user_id}' )`);
 }
 
 /*
@@ -245,8 +247,5 @@ exports.addFutureGame = addFutureGame;
 exports.addScoreToGame = addScoreToGame
 exports.addEventToGame = addEventToGame
 exports.checkIfMathcExists = checkIfMathcExists
-<<<<<<< HEAD
 exports.checkIfTeamHaveGame = checkIfTeamHaveGame;
-=======
 exports.deleteGame = deleteGame
->>>>>>> c3f53291136975fefac6cc4547ffba6433799dc4
