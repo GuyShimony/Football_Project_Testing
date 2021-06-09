@@ -51,7 +51,7 @@ router.get("/name/:teamname", async (req, res, next) => {
 router.get("/search/:teamname", async (req, res, next) => {
   try {
     const team_id = await teams_utils.getTeamIdByName(req.params.teamname)
-    const team_details = await teams_utils.getPreviwTeamData(team_id)
+    const team_details = await teams_utils.getPreviewTeamData(team_id)
     res.send(team_details);
   } catch (error) {
     next(error);

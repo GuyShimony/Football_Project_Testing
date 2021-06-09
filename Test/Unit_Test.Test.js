@@ -37,7 +37,7 @@ describe("Starting to run tests", function () {
   importTest("Referee API Acceptance Testing", "./AcceptanceTests/RefereeAPI_Acceptance_Testing.js");
 
     // ------- REGRESSION TESTS ----------
-  //importTest("Regression Tests", "./RegressionTests/Regression_Testing.js");
+  importTest("Regression Tests", "./RegressionTests/Regression_Testing.js");
 
 
   after(async function () {
