@@ -7,7 +7,7 @@ Test game adding / scheduling procedure with positive (OK) test and negative (Fa
 */
 
 describe('/POST addGame', () => {
-  it('OK, Match with date that does not match the current season', (done) => {
+  it('OK, Match with date that matches the current season', (done) => {
     
     var agent = common.chai.request.agent(`${api_domain}`)
 
