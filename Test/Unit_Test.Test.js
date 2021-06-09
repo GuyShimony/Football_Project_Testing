@@ -27,8 +27,8 @@ describe("Starting to run tests", function () {
   //   await common.createFakeUser();
   // });
   // importTest("Game scheduling", "./UnitTests/Games_Unit_Testing.js");
-  importTest("Referee scheduling", "./UnitTests/Referees_Unit_Testing.js");
-  // importTest("Game API", "./IntegrationTests/GameAPI_Integration_Testing.js");
+  // importTest("Referee scheduling", "./UnitTests/Referees_Unit_Testing.js");
+  importTest("Game API", "./IntegrationTests/GameAPI_Acceptance_Testing.js");
   // importTest("Referee API", "./IntegrationTests/RefereeAPI_Integration_Testing.js");
 
   //importTest("Team Tests", "./UnitTests/Teams_Unit_Testing.js");
