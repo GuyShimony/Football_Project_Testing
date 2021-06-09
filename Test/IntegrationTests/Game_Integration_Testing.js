@@ -48,9 +48,7 @@ describe('/POST addGame() + getallupcoming()', () => {
 
       })
       after(async function () {
-        console.log("Clear the game from the DB");
-        await common.DButils.execQuery(`DELETE FROM Games WHERE GameDateTime = '2021-09-09 20:00:00' 
-        AND HomeTeamID = 85 AND AwayTeamID = 86`);
+        await common.deleteTestGame('2021-09-09', '20:00:00', 85, 86)
     });
     })
 
@@ -102,9 +100,7 @@ describe('/POST addGame() + checkifmatchexists()', () => {
 
       })
       after(async function () {
-        console.log("Clear the game from the DB");
-        await common.DButils.execQuery(`DELETE FROM Games WHERE GameDateTime = '2021-11-11 21:00:00' 
-        AND HomeTeamID = 293 AND AwayTeamID = 2447`);
+        await common.deleteTestGame('2021-11-11', '21:00:00', 293, 2447)
     });
     })
 

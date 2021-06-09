@@ -46,8 +46,8 @@ describe('Intergration of Game Domain and Referees Domain', () => {
       })
 
       after(async () => {
-        console.log("Deleting the game that was added in the test")  
-        await common.DButils.execQuery(`DELETE FROM Games Where GameDateTime = '2021-01-03 19:00:00' AND HomeTeamID = 939 AND AwayTeamID = 211`)})
+        await common.deleteTestGame('2021-01-03', '19:00:00', 939, 211)
+      })
 })
 
 
@@ -69,7 +69,7 @@ describe('Intergration of Game Domain and Referees Domain', () => {
             headreferee: {user_id: 4, name:"William Collum"},
             linereferee1: {user_id: 3, name:"Daiyrbek Abdyldayev"},
             linereferee2: {user_id: 5, name:"Zainiddin Alimov"},
-            boxreferee1: {user_id:10, name:"New User", role:"Box"},
+            boxreferee1: {user_id: await common.getFakeUserUserId(), name:common.fake_user.username, role:"Box"},
             boxreferee2: {user_id: 2, name:"Denis Shalayev"}
           } 
           await users_utils.addReferee(
@@ -104,11 +104,7 @@ describe('Intergration of Game Domain and Referees Domain', () => {
       })
 
       after(async () => {
-        console.log("Deleting the game that was added in the test")  
-        await common.DButils.execQuery(`DELETE FROM Games Where GameDateTime = '2021-01-04 19:00:00'
-       AND HomeTeamID = 939 AND AwayTeamID = 211`)
-       console.log("Deleting the fake referee")  
-       await common.DButils.execQuery(`DELETE FROM Referees Where userid = 10`)
+        await common.deleteTestGame('2021-01-04', '19:00:00', 939, 211)
     })
        
 })

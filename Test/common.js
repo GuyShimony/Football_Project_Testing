@@ -1,3 +1,6 @@
+/*
+ ---------- External libs imports -------------
+*/
 const expect = require("chai").expect
 const chaiAsPromised = require("chai-as-promised");
 const chaiHttp = require('chai-http');
@@ -8,6 +11,18 @@ chai.use(chaiAsPromised);
 const path = require("path")
 const DButils = require(path.join(__dirname, '../',"Domain","DButils.js"));
 
+/*
+ ---------- Constants -------------
+*/
+const fake_user = {
+    username: "fakeuser",
+    firstname: "fake",
+    lastname: "faker",
+    country: "Something",
+    password: "fake",
+    email: "fake@example.com",
+    imageurl: "https:\\fake-profile.com"
+}
 const test_game = {
     game_date: "2022-10-10",
     game_time: "19:00:00",
@@ -23,6 +38,9 @@ const test_game = {
     box_referee2: {user_id: 2, name:"Denis Shalayev", role:"Box"}
 }
 
+/*
+ ---------- Constants EXPORT-------------
+*/
 exports.api_domain = api_domain = "http://localhost:3000";
 exports.chai = chai
 exports.chaiAsPromised = chaiAsPromised
@@ -33,6 +51,12 @@ exports.path = path
 exports.axios = axios
 exports.DButils = DButils
 
+exports.test_game = test_game
+exports.fake_user = fake_user
+
+/*
+ ---------- Functions EXPORT-------------
+*/
 exports.createFakeUser = async () =>
 {
     let user = await DButils.execQuery(`SELECT userid FROM Users WHERE username = 'fakeuser'`)
@@ -41,16 +65,16 @@ exports.createFakeUser = async () =>
 
     await axios.post(
         `${api_domain}/register`,
-        { username: "fakeuser",
-        firstname: "fake",
-        lastname: "faker",
-        country: "Something",
-        password: "fake",
-        email: "fake@example.com",
-        imageurl: "https:\\fake-profile.com"}
+        { username: fake_user.username,
+        firstname: fake_user.firstname,
+        lastname: fake_user.lastname,
+        country: fake_user.country,
+        password: fake_user.password,
+        email: fake_user.email,
+        imageurl: fake_user.imageurl}
     )
 
-    let userid = await DButils.execQuery(`SELECT userid FROM Users WHERE username = 'fakeuser'`)
+    let userid = await DButils.execQuery(`SELECT userid FROM Users WHERE username = '${fake_user.username}'`)
     userid = userid[0].userid;
 
     await DButils.execQuery(`INSERT INTO LeagueRepsUsers VALUES (${userid})`)
@@ -60,7 +84,6 @@ exports.deleteFakeUser = async () =>
 {
     console.log("Deleting the refreee that was added in the test")  
     let userid = await this.getFakeUserUserId()
-    userid = userid[0].userid;
     await DButils.execQuery(`DELETE FROM Users WHERE userid = ${userid}`)
     await DButils.execQuery(`DELETE FROM LeagueRepsUsers WHERE userid = ${userid}`)
     await DButils.execQuery(`DELETE FROM Referees WHERE userid = ${userid}`)
@@ -68,8 +91,8 @@ exports.deleteFakeUser = async () =>
 
 exports.getFakeUserUserId = async () => {
     console.log("Searching for the fake username")
-    let userid = await DButils.execQuery(`SELECT userid FROM Users WHERE username = 'fakeuser'`)
-    return userid
+    let userid = await DButils.execQuery(`SELECT userid FROM Users WHERE username = '${fake_user.username}'`)
+    return userid[0].userid
 }
 
 exports.deleteTestGame = async (game_date="2022-10-10", game_time="19:00:00", home_team_id=939, away_team_id=86) => {
@@ -97,5 +120,3 @@ exports.createTestGame = async (game_date=test_game.game_date, game_time=test_ga
     '${linereferee2.name}','${linereferee2.user_id}', '${boxreferee1.name}','${boxreferee1.user_id}',
     '${boxreferee2.name}','${boxreferee2.user_id}' )`);
 }
-
-exports.test_game = test_game

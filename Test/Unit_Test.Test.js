@@ -29,13 +29,13 @@ describe("Starting to run tests", function () {
   // importTest("Game scheduling", "./UnitTests/Games_Unit_Testing.js");
   // importTest("Referee scheduling", "./UnitTests/Referees_Unit_Testing.js");
   // importTest("Game API", "./AcceptanceTests/GameAPI_Acceptance_Testing.js");
-  importTest("Referee API", "./AcceptanceTests/RefereeAPI_Acceptance_Testing.js");
+  // importTest("Referee API", "./AcceptanceTests/RefereeAPI_Acceptance_Testing.js");
 
   //importTest("Team Tests", "./UnitTests/Teams_Unit_Testing.js");
   //importTest("Regression Tests", "./RegressionTests/Regression_Testing.js");
   //importTest("Login Tests", "./UnitTests/Login_Unit_Testing.js");
   // importTest("Games Integration Tests", "./IntegrationTests/Game_Integration_Testing.js");
-  // importTest("Referees Integration Tests", "./IntegrationTests/Referee_Integration_Testing.js");
+  importTest("Referees Integration Tests", "./IntegrationTests/Referee_Integration_Testing.js");
 
   after(async function () {
       console.log("Clear the fake username from the DB");
