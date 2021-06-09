@@ -2,7 +2,7 @@ let common = require("../common.js");
 
 
 /*
-Test login procedure with positive (OK) test and negative (Fail) tests
+Test new Use case of delete game and see if it fails
 */
 describe('Delete Game Regression Test', () => {
 
