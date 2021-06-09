@@ -28,13 +28,13 @@ describe("Starting to run tests", function () {
   importTest("Team Unit Testing", "./UnitTests/Teams_Unit_Testing.js");
 
   // ------- INTEGRATION TESTS ---------
-  // importTest("Games Integration Tests", "./IntegrationTests/Game_Integration_Testing.js");
-  // importTest("Referees Integration Tests", "./IntegrationTests/Referee_Integration_Testing.js");
+  importTest("Games Integration Tests", "./IntegrationTests/Game_Integration_Testing.js");
+  importTest("Referees Integration Tests", "./IntegrationTests/Referee_Integration_Testing.js");
 
   // ------- ACCEPTANCE TESTS ----------
-  //importTest("Login API Acceptance Testing", "./AcceptanceTests/LoginAPI_Acceptance_Testing.js");
-  // importTest("Game API Acceptance Testing", "./AcceptanceTests/GameAPI_Acceptance_Testing.js");
-  // importTest("Referee API Acceptance Testing", "./AcceptanceTests/RefereeAPI_Acceptance_Testing.js");
+  importTest("Login API Acceptance Testing", "./AcceptanceTests/LoginAPI_Acceptence_Testing.js");
+  importTest("Game API Acceptance Testing", "./AcceptanceTests/GameAPI_Acceptance_Testing.js");
+  importTest("Referee API Acceptance Testing", "./AcceptanceTests/RefereeAPI_Acceptance_Testing.js");
 
     // ------- REGRESSION TESTS ----------
   //importTest("Regression Tests", "./RegressionTests/Regression_Testing.js");
