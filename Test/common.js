@@ -95,12 +95,15 @@ exports.getFakeUserUserId = async () => {
     return userid[0].userid
 }
 
-exports.deleteTestGame = async (game_date="2022-10-10", game_time="19:00:00", home_team_id=939, away_team_id=86) => {
+exports.deleteTestGame = async (game_date="2022-10-10", game_time="19:00:00", home_team_id=939, away_team_id=86, gameid=1) => {
     console.log("Deleting the game that was added in the test")  
     await DButils.execQuery(`DELETE FROM Games Where
     GameDateTime = '${game_date} ${game_time}' AND
     HomeTeamID = ${home_team_id} AND
     AwayTeamID = ${away_team_id}`)
+
+    console.log("Deleting game 1 from the the UsersFavoriteGames Table")
+    await DButils.execQuery(`DELETE FROM UsersFavoriteGames WHERE gameid = ${gameid}`)
 }
 
 exports.createTestGame = async (game_date=test_game.game_date, game_time=test_game.game_time,
@@ -119,4 +122,15 @@ exports.createTestGame = async (game_date=test_game.game_date, game_time=test_ga
     ,'${stadium}', '${headreferee.name}','${headreferee.user_id}', '${linereferee1.name}','${linereferee1.user_id}',
     '${linereferee2.name}','${linereferee2.user_id}', '${boxreferee1.name}','${boxreferee1.user_id}',
     '${boxreferee2.name}','${boxreferee2.user_id}' )`);
+}
+
+exports.createTestFavGame = async (userid=1, gameid=6) => {
+    try{
+        console.log("Insert game 1 with datetime 2021-02-03 19:00:00 to the UsersFavoriteGames Table")
+        await DButils.execQuery(`INSERT INTO UsersFavoriteGames ([userid],[gameid]) VALUES (${userid},${gameid})`)
+    }
+    catch (error) {
+        console.log(error)
+        console.log("Game already exits in the DB")
+      }
 }

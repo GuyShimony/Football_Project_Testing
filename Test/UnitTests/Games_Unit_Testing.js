@@ -384,14 +384,8 @@ describe('#addEventToGame()', function() {
 
 describe('#removePastGames()', function() {
   before(async function() {
-    try{
     // Insert a past game to the users favorite table for testing
-    console.log("Insert game 1 with datetime 2021-01-03 19:00:00 to the UsersFavoriteGames Table")
-    await common.DButils.execQuery("INSERT INTO UsersFavoriteGames ([userid],[gameid]) VALUES (1,1)")
-    }
-    catch{
-      console.log("Game already exits in the DB")
-    }
+    await common.createTestFavGame(await common.getFakeUserUserId())
   })
   const now = new Date()
   context('activate function', function() {
@@ -407,22 +401,15 @@ describe('#removePastGames()', function() {
   })
 
   after(async function() {
-    // Insert a past game to the users favorite table for testing
-    console.log("Deleting game 1 from the the UsersFavoriteGames Table")
-    await common.DButils.execQuery("DELETE FROM UsersFavoriteGames WHERE gameid = 1")})
+    // Delete the test game
+    await common.deleteTestGame()
+  })
 })
 
 
 describe('#removePastGames()', function() {
   before(async function() {
-    try{
-    // Insert a past game to the users favorite table for testing
-    console.log("Insert game 1 with datetime 2021-01-03 19:00:00 to the UsersFavoriteGames Table")
-    await common.DButils.execQuery("INSERT INTO UsersFavoriteGames ([userid],[gameid]) VALUES (1,1)")
-    }
-    catch{
-      console.log("Game already exits in the DB")
-    }
+    await common.createTestFavGame(await common.getFakeUserUserId())
   })
   const now = new Date()
   context('activate function', function() {
@@ -438,9 +425,8 @@ describe('#removePastGames()', function() {
   })
 
   after(async function() {
-    // Insert a past game to the users favorite table for testing
-    console.log("Deleting game 1 from the the UsersFavoriteGames Table")
-    await common.DButils.execQuery("DELETE FROM UsersFavoriteGames WHERE gameid = 1")})
+    await common.deleteTestGame()
+  })
 })
 
 describe('#checkIfTeamHaveGame()', function() {
