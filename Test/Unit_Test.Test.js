@@ -20,22 +20,25 @@ describe("Starting to run tests", function () {
     console.log( "Creating a fake user name for the api tests in the DB");
     await common.createFakeUser();
   });
-  //importTest("Game scheduling", "./Game_Schedule/games_utils_Unit_Testing.js");
-  //importTest("Login", "./IntegrationTests/LoginAPI_Integration_Testing.js");
-  // before(async function () {
-  //   console.log( "Creating a fake user name for the api tests in the DB");
-  //   await common.createFakeUser();
-  // });
-  // importTest("Game scheduling", "./UnitTests/Games_Unit_Testing.js");
-  // importTest("Referee scheduling", "./UnitTests/Referees_Unit_Testing.js");
-  // importTest("Game API", "./AcceptanceTests/GameAPI_Acceptance_Testing.js");
-  // importTest("Referee API", "./AcceptanceTests/RefereeAPI_Acceptance_Testing.js");
 
-  //importTest("Team Tests", "./UnitTests/Teams_Unit_Testing.js");
-  //importTest("Regression Tests", "./RegressionTests/Regression_Testing.js");
-  //importTest("Login Tests", "./UnitTests/Login_Unit_Testing.js");
-  // importTest("Games Integration Tests", "./IntegrationTests/Game_Integration_Testing.js");
+  // ------ UNIT TESTS ---------
+  // importTest("Game scheduling Unit Testing", "./UnitTests/Games_Unit_Testing.js");
+  // importTest("Referee scheduling Unit Testing", "./UnitTests/Referees_Unit_Testing.js");
+  //importTest("Login Unit Testing", "./UnitTests/Login_Unit_Testing.js");
+  //importTest("Team Unit Testing", "./UnitTests/Teams_Unit_Testing.js");
+
+  // ------- INTEGRATION TESTS ---------
+  importTest("Games Integration Tests", "./IntegrationTests/Game_Integration_Testing.js");
   importTest("Referees Integration Tests", "./IntegrationTests/Referee_Integration_Testing.js");
+
+  // ------- ACCEPTANCE TESTS ----------
+  //importTest("Login API Acceptance Testing", "./AcceptanceTests/LoginAPI_Acceptance_Testing.js");
+  // importTest("Game API Acceptance Testing", "./AcceptanceTests/GameAPI_Acceptance_Testing.js");
+  // importTest("Referee API Acceptance Testing", "./AcceptanceTests/RefereeAPI_Acceptance_Testing.js");
+
+    // ------- REGRESSION TESTS ----------
+  //importTest("Regression Tests", "./RegressionTests/Regression_Testing.js");
+
 
   after(async function () {
       console.log("Clear the fake username from the DB");
