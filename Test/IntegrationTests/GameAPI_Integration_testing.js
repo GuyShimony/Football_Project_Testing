@@ -23,9 +23,11 @@ describe('/POST addGame', () => {
             away_team: "Horsens",
             away_team_id: 211,
             stadium: "MCH Arena",
-            referee: {
-              name: "Denis Shalayev"
-            }
+            head_referee: {user_id: 7, name:"Nick Walsh", role:"Head"},
+            line_referee1: {user_id: 3, name:"Daiyrbek Abdyldayev", role:"Line"},
+            line_referee2: {user_id: 5, name:"Zainiddin Alimov", role:"Line"},
+            box_referee1: {user_id:6, name:"Bobby Madden", role:"Box"},
+            box_referee2: {user_id: 2, name:"Denis Shalayev", role:"Box"}
           })
           .end((err, res) => {
             res.should.have.status(406);
@@ -52,9 +54,11 @@ describe('/POST addGame', () => {
                 away_team: "Horsens",
                 away_team_id: 211,
                 stadium: "MCH Arena",
-                referee: {
-                  name: "Denis Shalayev"
-                }
+                head_referee: {user_id: 7, name:"Nick Walsh", role:"Head"},
+                line_referee1: {user_id: 3, name:"Daiyrbek Abdyldayev", role:"Line"},
+                line_referee2: {user_id: 5, name:"Zainiddin Alimov", role:"Line"},
+                box_referee1: {user_id:6, name:"Bobby Madden", role:"Box"},
+                box_referee2: {user_id: 2, name:"Denis Shalayev", role:"Box"}
               })
               .end((err, res) => {
                 res.should.have.status(406);
@@ -80,9 +84,11 @@ describe('/POST addGame', () => {
             away_team: "København",
             away_team_id: 85,
             stadium: "MCH Arena",
-            referee: {
-              name: null
-            }
+            head_referee: {user_id: 7, name:"Nick Walsh", role:"Head"},
+            line_referee1: {user_id: 3, name:"Daiyrbek Abdyldayev", role:"Line"},
+            line_referee2: {user_id: 5, name:"Zainiddin Alimov", role:"Line"},
+            box_referee1: {user_id:6, name:"Bobby Madden", role:"Box"},
+            box_referee2: {user_id: 2, name:"Denis Shalayev", role:"Box"}
           })
           .end((err, res) => {
             res.should.have.status(405);
@@ -107,9 +113,11 @@ describe('/POST addGame', () => {
                 away_team: "København",
                 away_team_id: 85,
                 stadium: "MCH Arena",
-                referee: {
-                  name: null
-                }
+                head_referee: {user_id: 7, name:"Nick Walsh", role:"Head"},
+                line_referee1: {user_id: 3, name:"Daiyrbek Abdyldayev", role:"Line"},
+                line_referee2: {user_id: 5, name:"Zainiddin Alimov", role:"Line"},
+                box_referee1: {user_id:6, name:"Bobby Madden", role:"Box"},
+                box_referee2: {user_id: 2, name:"Denis Shalayev", role:"Box"}
               })
               .end((err, res) => {
                 res.should.have.status(401);
