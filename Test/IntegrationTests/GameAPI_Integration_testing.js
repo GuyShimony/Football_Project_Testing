@@ -102,7 +102,7 @@ describe('/POST addGame', () => {
   it('Fail, The User is not a league representive', (done) => {
         var agent = common.chai.request.agent(`${api_domain}`)
             agent.post('/login')
-            .send({username: "edenY", password: "1234eden"})
+            .send({username: "aliceLoveBob", password: "1234alice"})
             .end((err, res) => {
               agent.post('/games/addGame')
               .send({
