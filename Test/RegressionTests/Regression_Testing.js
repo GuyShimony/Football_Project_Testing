@@ -22,14 +22,3 @@ describe('Delete Game Regression Test', () => {
       })
   })
 })
-
-
-// describe('#deleteGame()', function() {
-
-//     context('with valid game time', function() {
-//       it('should return true', async  function() {
-//         const result = await games_utils.deleteGame("2021-08-01 19:00:00")
-//         common.expect(result).to.equal(true)
-//       })
-//     })
-// })
