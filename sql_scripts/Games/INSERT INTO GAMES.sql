@@ -6,7 +6,7 @@ INSERT INTO Games
    , [LineReferee2], [LineRefereeID2], [BoxReferee1], [BoxRefereeID1], [BoxReferee2], [BoxRefereeID2])
    
 VALUES
-   ('2021-01-03 19:00:00', 'Midtjylland', 939, 'SønderjyskE, ',390, 'MCH Arena', 
+   ('2021-01-03 19:00:00', 'Midtjylland', 939, 'SønderjyskE',390, 'MCH Arena', 
    '0-3','Nick Walsh',7, 'Daiyrbek Abdyldayev',3,'Zainiddin Alimov',5,'Denis Shalayev',2,'Bobby Madden',6),
    ('2021-01-10 19:00:00', 'Midtjylland',939, 'SønderjyskE',390, 'MCH Arena', 
    '0-1','William Collum',4, 'Daiyrbek Abdyldayev',3,'Zainiddin Alimov',5,'Denis Shalayev',2,'Bobby Madden',6),
