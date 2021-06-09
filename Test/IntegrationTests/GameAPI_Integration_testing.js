@@ -66,8 +66,8 @@ describe('/POST addGame', () => {
             box_referee2: {user_id: 2, name:"Denis Shalayev", role:"Box"}
           })
           .end((res, err) => {
-            res.should.have.status(406);
-            res.should.have.property('text').eql('Bad game input. Please check the date or teams');
+            err.should.have.status(406);
+            err.should.have.property('text').eql('Bad game input. Please check the date or teams or referees');
             done();
           })
         })
@@ -97,8 +97,8 @@ describe('/POST addGame', () => {
                 box_referee2: {user_id: 2, name:"Denis Shalayev", role:"Box"}
               })
               .end((res, err) => {
-                res.should.have.status(406);
-                res.should.have.property('text').eql('Bad game input. Please check the date or teams');
+                err.should.have.status(406);
+                err.should.have.property('text').eql('Bad game input. Please check the date or teams or referees');
                 done();
               })
             })
@@ -127,8 +127,8 @@ describe('/POST addGame', () => {
             box_referee2: {user_id: 2, name:"Denis Shalayev", role:"Box"}
           })
           .end((res, err) => {
-            res.should.have.status(405);
-            res.should.have.property('text').eql('The teams already have a match in that date & time');
+            err.should.have.status(405);
+            err.should.have.property('text').eql('The teams already have a match in that date & time');
             done();
           })
         })
@@ -156,8 +156,8 @@ describe('/POST addGame', () => {
                 box_referee2: {user_id: 2, name:"Denis Shalayev", role:"Box"}
               })
               .end((res, err) => {
-                res.should.have.status(401);
-                res.should.have.property('text').eql('Privilege Error: The following action is only permitted to league representives Or you have not Logged in first');
+                err.should.have.status(401);
+                err.should.have.property('text').eql('Privilege Error: The following action is only permitted to league representives Or you have not Logged in first');
                 done();
               })
             })
