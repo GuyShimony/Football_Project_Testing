@@ -29,7 +29,7 @@ describe("Starting to run tests", function () {
   // importTest("Game scheduling", "./UnitTests/Games_Unit_Testing.js");
   // importTest("Referee scheduling", "./UnitTests/Referees_Unit_Testing.js");
   // importTest("Game API", "./IntegrationTests/GameAPI_Acceptance_Testing.js");
-  importTest("Referee API", "./Acceptance/RefereeAPI_Acceptance_Testing.js");
+  importTest("Referee API", "./AcceptanceTests/RefereeAPI_Acceptance_Testing.js");
 
   //importTest("Team Tests", "./UnitTests/Teams_Unit_Testing.js");
   //importTest("Regression Tests", "./RegressionTests/Regression_Testing.js");
