@@ -119,7 +119,7 @@ describe('/POST addGame', () => {
                 box_referee1: {user_id:6, name:"Bobby Madden", role:"Box"},
                 box_referee2: {user_id: 2, name:"Denis Shalayev", role:"Box"}
               })
-              .end((err, res) => {
+              .end((res, err) => {
                 res.should.have.status(401);
                 res.should.have.property('text').eql('Privilege Error: The following action is only permitted to league representives Or you have not Logged in first');
                 done();
