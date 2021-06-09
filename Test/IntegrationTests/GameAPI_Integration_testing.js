@@ -7,6 +7,38 @@ Test game adding / scheduling procedure with positive (OK) test and negative (Fa
 */
 
 describe('/POST addGame', () => {
+  it('OK, Match with date that does not match the current season', (done) => {
+    
+    var agent = common.chai.request.agent(`${api_domain}`)
+
+        agent.post('/login')
+        .send({username: "fakeuser", password: "fake"})
+        .end((err, res) => {
+          agent.post('/games/addGame')
+          .send({
+            game_date: "2022-01-01",
+            game_time: "19:00:00",
+            home_team: "Midtjylland",
+            home_team_id: 939,
+            away_team: "Silkeborg",
+            away_team_id: 86,
+            stadium: "MCH Arena",
+            head_referee: {user_id: 7, name:"Nick Walsh", role:"Head"},
+            line_referee1: {user_id: 3, name:"Daiyrbek Abdyldayev", role:"Line"},
+            line_referee2: {user_id: 5, name:"Zainiddin Alimov", role:"Line"},
+            box_referee1: {user_id:6, name:"Bobby Madden", role:"Box"},
+            box_referee2: {user_id: 2, name:"Denis Shalayev", role:"Box"}
+          })
+          .end((err, res) => {
+            res.should.have.status(200);
+            res.should.have.property('text').eql('The game was successfully added');
+            done();
+          })
+        })
+
+      });
+
+
   it('Fail, Match with date that does not match the current season', (done) => {
     
     var agent = common.chai.request.agent(`${api_domain}`)
