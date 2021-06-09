@@ -116,7 +116,6 @@ describe('/POST addGame() + checkifmatchexists()', () => {
         game_to_change = past_games[0];
         await games_utils.addScoreToGame(game_to_change['gameid'],'2-2');
         let game_info = await games_utils.getGamesInfo([game_to_change['gameid']]);
-        let h = game_info[0]['Result']
         common.expect(game_info[0]['Result']).to.equal("2-2");  
         })
 
