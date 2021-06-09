@@ -56,7 +56,7 @@ describe('#checkIfRefereeExist()', function() {
 
   describe('#checkIfFreeHeadReferees()', function() {
     context('with a date that have a scheduled game', function() {
-        let test_data = {game_date: "2021-08-08", game_time: "17:00:00"}
+        let test_data = {game_date: "2021-08-01", game_time: "19:00:00"}
       it('should return only 1 referee', async  function() {
         const result = await users_utils.checkIfFreeHeadReferees(test_data.game_date, test_data.game_time)
         common.expect(result.length).to.equal(1)
@@ -80,11 +80,12 @@ describe('#checkIfRefereeExist()', function() {
             .to.throw(Error)
         })  
       })
-    }) 
+    })
+}) 
 
 describe('#checkIfFreeLineReferees()', function() {
         context('with a date that have a scheduled game', function() {
-            let test_data = {game_date: "2021-08-08", game_time: "17:00:00"}
+            let test_data = {game_date: "2021-08-01", game_time: "19:00:00"}
           it('should return only 0 referees', async  function() {
             const result = await users_utils.checkIfFreeLineReferees(test_data.game_date, test_data.game_time)
             common.expect(result.length).to.equal(0)
@@ -108,12 +109,11 @@ describe('#checkIfFreeLineReferees()', function() {
             })  
           })
         }) 
-    })
 })
 
 describe('#checkIfFreeBoxReferees()', function() {
     context('with a date that have a scheduled game', function() {
-        let test_data = {game_date: "2021-08-08", game_time: "17:00:00"}
+        let test_data = {game_date: "2021-08-01", game_time: "19:00:00"}
       it('should return only 0 referees', async  function() {
         const result = await users_utils.checkIfFreeBoxReferees(test_data.game_date, test_data.game_time)
         common.expect(result.length).to.equal(0)
