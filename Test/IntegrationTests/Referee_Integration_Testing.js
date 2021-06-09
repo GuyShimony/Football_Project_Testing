@@ -105,6 +105,7 @@ describe('Intergration of Game Domain and Referees Domain', () => {
 
       after(async () => {
         await common.deleteTestGame('2021-01-04', '19:00:00', 939, 211)
+        await common.deleteFakeReferee(userid = await common.getFakeUserUserId())
     })
        
 })

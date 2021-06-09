@@ -134,3 +134,8 @@ exports.createTestFavGame = async (userid=1, gameid=6) => {
         console.log("Game already exits in the DB")
       }
 }
+
+exports.deleteFakeReferee = async (userid=1) => {
+    console.log("Deleting fake user from Referees Table")
+    await DButils.execQuery(`DELETE FROM Referees WHERE userid = ${userid}`)
+}
