@@ -8,6 +8,20 @@ chai.use(chaiAsPromised);
 const path = require("path")
 const DButils = require(path.join(__dirname, '../',"Domain","DButils.js"));
 
+const test_game = {
+    game_date: "2022-10-10",
+    game_time: "19:00:00",
+    home_team: "Midtjylland",
+    home_team_id: 939,
+    away_team: "Silkeborg",
+    away_team_id: 86,
+    stadium: "MCH Arena",
+    head_referee: {user_id: 7, name:"Nick Walsh", role:"Head"},
+    line_referee1: {user_id: 3, name:"Daiyrbek Abdyldayev", role:"Line"},
+    line_referee2: {user_id: 5, name:"Zainiddin Alimov", role:"Line"},
+    box_referee1: {user_id:6, name:"Bobby Madden", role:"Box"},
+    box_referee2: {user_id: 2, name:"Denis Shalayev", role:"Box"}
+}
 
 exports.api_domain = api_domain = "http://localhost:3000";
 exports.chai = chai
@@ -44,10 +58,12 @@ exports.createFakeUser = async () =>
 
 exports.deleteFakeUser = async () =>
 {
-    let userid = await DButils.execQuery(`SELECT userid FROM Users WHERE username = 'fakeuser'`)
+    console.log("Deleting the refreee that was added in the test")  
+    let userid = await this.getFakeUserUserId()
     userid = userid[0].userid;
     await DButils.execQuery(`DELETE FROM Users WHERE userid = ${userid}`)
     await DButils.execQuery(`DELETE FROM LeagueRepsUsers WHERE userid = ${userid}`)
+    await DButils.execQuery(`DELETE FROM Referees WHERE userid = ${userid}`)
 }
 
 exports.getFakeUserUserId = async () => {
@@ -56,10 +72,30 @@ exports.getFakeUserUserId = async () => {
     return userid
 }
 
-exports.deleteTestGame = async (game_date, game_time, home_team_id, away_team_id) => {
+exports.deleteTestGame = async (game_date="2022-10-10", game_time="19:00:00", home_team_id=939, away_team_id=86) => {
     console.log("Deleting the game that was added in the test")  
     await DButils.execQuery(`DELETE FROM Games Where
     GameDateTime = '${game_date} ${game_time}' AND
     HomeTeamID = ${home_team_id} AND
     AwayTeamID = ${away_team_id}`)
 }
+
+exports.createTestGame = async (game_date=test_game.game_date, game_time=test_game.game_time,
+    HomeTeamID=test_game.home_team_id, HomeTeam=test_game.home_team,
+    AwayTeamID=test_game.away_team_id, AwayTeam=test_game.away_team,
+     stadium=test_game.stadium, headreferee=test_game.head_referee,
+     linereferee1=test_game.line_referee1, linereferee2=test_game.line_referee2,
+     boxreferee1=test_game.box_referee1, boxreferee2=test_game.box_referee2
+     ) => {
+    console.log("Creating the game for the test")  
+    await DButils.execQuery(`INSERT INTO Games
+    ([GameDateTime],[HomeTeam],[HomeTeamID],[AwayTeam],
+      [AwayTeamID], [Stadium], [HeadReferee], [HeadRefereeID], [LineReferee1], [LineRefereeID1]
+      , [LineReferee2], [LineRefereeID2], [BoxReferee1], [BoxRefereeID1], [BoxReferee2], [BoxRefereeID2])
+    VALUES ('${game_date} ${game_time}', '${HomeTeam}',${HomeTeamID},'${AwayTeam}',${AwayTeamID}
+    ,'${stadium}', '${headreferee.name}','${headreferee.user_id}', '${linereferee1.name}','${linereferee1.user_id}',
+    '${linereferee2.name}','${linereferee2.user_id}', '${boxreferee1.name}','${boxreferee1.user_id}',
+    '${boxreferee2.name}','${boxreferee2.user_id}' )`);
+}
+
+exports.test_game = test_game
