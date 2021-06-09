@@ -27,7 +27,8 @@ describe('/POST registerAsReferee', () => {
           })
           after(async () => {
             console.log("Deleting the refreee that was added in the test")  
-            await common.DButils.execQuery(`DELETE FROM Referees Where userid = 10`)
+            let userid = await common.getFakeUserUserId()
+            await common.DButils.execQuery(`DELETE FROM Referees Where userid = ${userid}`)
           })
         });
   
