@@ -1,11 +1,6 @@
 let common = require("../common.js");
 
 
-let games_utils = require(common.path.join(__dirname, '../../',"Domain","games_utils.js"));
-let games = require(common.path.join(__dirname, '../../',"Service","games.js"));
-
-
-
 /*
 Test login procedure with positive (OK) test and negative (Fail) tests
 */
