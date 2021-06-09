@@ -382,30 +382,6 @@ describe('#addEventToGame()', function() {
   })
 })
 
-describe('#removePastGames()', function() {
-  before(async function() {
-    // Insert a past game to the users favorite table for testing
-    await common.createTestFavGame(await common.getFakeUserUserId())
-  })
-  const now = new Date()
-  context('activate function', function() {
-    it('should delete all games with dates less than now', async  function() {
-      await games_utils.removePastGames()
-      const result = await common.DButils.execQuery("Select * From UsersFavoriteGames JOIN Games ON Games.gameid = UsersFavoriteGames.gameid")
-      result.map(game => {
-        // Convert each date to Date object to be comparable
-        let game_datetime = new Date(game.GameDateTime)
-        common.expect(game_datetime).to.be.above(now)
-      })
-    })
-  })
-
-  after(async function() {
-    // Delete the test game
-    await common.deleteTestGame()
-  })
-})
-
 
 describe('#removePastGames()', function() {
   before(async function() {
