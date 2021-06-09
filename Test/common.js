@@ -51,6 +51,15 @@ exports.deleteFakeUser = async () =>
 }
 
 exports.getFakeUserUserId = async () => {
+    console.log("Searching for the fake username")
     let userid = await DButils.execQuery(`SELECT userid FROM Users WHERE username = 'fakeuser'`)
     return userid
+}
+
+exports.deleteTestGame = async (game_date, game_time, home_team_id, away_team_id) => {
+    console.log("Deleting the game that was added in the test")  
+    await common.DButils.execQuery(`DELETE FROM Games Where
+    GameDateTime = '${game_date} ${game_time}' AND
+    HomeTeamID = ${home_team_id} AND
+    AwayTeamID = ${away_team_id}`)
 }
