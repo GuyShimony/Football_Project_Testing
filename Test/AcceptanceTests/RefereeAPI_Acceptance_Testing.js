@@ -25,11 +25,7 @@ describe('/POST registerAsReferee', () => {
               done();
             })
           })
-          after(async () => {
-            console.log("Deleting the refreee that was added in the test")  
-            let userid = await common.getFakeUserUserId()
-            await common.DButils.execQuery(`DELETE FROM Referees Where userid = ${userid}`)
-          })
+
         });
   
   
@@ -75,7 +71,13 @@ describe('/POST registerAsReferee', () => {
                 })
             })
     });
-  
+
+    after(async () => {
+      console.log("Deleting the refreee that was added in the test")  
+      let user = await common.getFakeUserUserId()
+      const userid = user[0].userid
+      await common.DButils.execQuery(`DELETE FROM Referees Where userid = ${userid}`)
+    })
 });
   
   
