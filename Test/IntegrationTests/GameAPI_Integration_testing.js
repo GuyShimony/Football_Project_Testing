@@ -20,8 +20,8 @@ describe('/POST addGame', () => {
             game_time: "19:00:00",
             home_team: "Midtjylland",
             home_team_id: 939,
-            away_team: "Horsens",
-            away_team_id: 211,
+            away_team: "Silkeborg",
+            away_team_id: 86,
             stadium: "MCH Arena",
             head_referee: {user_id: 7, name:"Nick Walsh", role:"Head"},
             line_referee1: {user_id: 3, name:"Daiyrbek Abdyldayev", role:"Line"},
@@ -47,7 +47,7 @@ describe('/POST addGame', () => {
             .end((err, res) => {
               agent.post('/games/addGame')
               .send({
-                game_date: "2019-01-01",
+                game_date: "2021-01-01",
                 game_time: "19:00:00",
                 home_team: "West Ham United",
                 home_team_id: 1,
