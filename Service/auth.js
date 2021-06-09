@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 const DButils = require("../Domain/DButils");
 const bcrypt = require("bcryptjs");
+const auth_utils = require("../Domain/auth_utils");
 
 router.post("/register", async (req, res, next) => {
   try {
@@ -35,12 +36,8 @@ router.post("/register", async (req, res, next) => {
 
 router.post("/login", async (req, res, next) => {
   try {
-    const user = (
-      await DButils.execQuery(
-        `SELECT * FROM Users WHERE username = '${req.body.username}'`
-      )
-    )[0];
-    // user = user[0];
+    let username=req.body.username
+    const user = await auth_utils.getUserInfo(username)
     console.log(user);
 
     // check that username exists & the password is correct
